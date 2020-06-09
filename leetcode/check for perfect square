@@ -1,0 +1,24 @@
+#define ul unsigned long
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        ul high=100000;
+        ul low=1;
+        ul mid;
+        ul sq;
+        while(low<=high){
+            mid=low+(high-low)/2;
+            sq=mid*mid;
+            if(sq==num){
+                return true;
+            }
+            else if(num<sq){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return false;
+    }
+};
