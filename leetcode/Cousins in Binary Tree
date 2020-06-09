@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool isCousins(TreeNode* root, int x, int y) {
+        unordered_map<int,pair<int,int>>om;
+        queue<TreeNode*>node_q;
+        node_q.push(root);
+        om[root->val].first=0;
+        om[root->val].second=-1;
+        while(!node_q.empty()){
+            TreeNode* temp=node_q.front();
+            if(temp->left){
+                node_q.push(temp->left);
+                om[temp->left->val].first=om[temp->val].first+1;
+                om[temp->left->val].second=temp->val;
+            }
+            if(temp->right){
+                node_q.push(temp->right);
+                om[temp->right->val].first=om[temp->val].first+1;
+                om[temp->right->val].second=temp->val;
+            }
+            node_q.pop();
+        }
+        int level_x=om[x].first;
+        int parent_x=om[x].second;
+        int level_y=om[y].first;
+        int parent_y=om[y].second;
+        if(level_x==level_y && parent_x!=parent_y){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+};
