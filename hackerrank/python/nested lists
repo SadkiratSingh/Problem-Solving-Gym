@@ -1,0 +1,18 @@
+if __name__ == '__main__':
+    scores_list=[]
+    students_list=[]
+    for _ in range(int(input())):
+        name = input()
+        score = float(input())
+        scores_list.append(score)
+        students_list.append([name,score])
+    scores_list.sort()
+    second_highest=0
+    for x in scores_list:
+        if x>scores_list[0]:
+            second_highest=x
+            break
+    filtered_students_list=[x for x in students_list if x[1]==second_highest]
+    final_students_list=sorted(filtered_students_list,key=lambda x:x[0])
+    for x in final_students_list:
+        print(x[0])
