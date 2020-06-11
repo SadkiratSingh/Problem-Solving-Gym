@@ -1,0 +1,21 @@
+//With Auxiliary Space(out of place)//
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        map<int,int>om;
+        for(int x:nums){
+            om[x]+=1;
+        }
+        int i=0;
+        for(auto x:om){
+            while(x.second!=0){
+                nums[i]=x.first;
+                i++;
+                x.second--;
+            }
+        }
+    }
+};
+
+//With Auxiliary Space(out of place)//
