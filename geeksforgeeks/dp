@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+
+int max_divide(int num,int b){
+    while(num%b==0){
+        num=num/b;
+    }
+    return num;
+}
+
+int findNthUgly(int n){
+    int count=1;
+    int i=2;
+    int num;
+    while(true){
+        num=max_divide(i,2);
+        num=max_divide(num,3);
+        num=max_divide(num,5);
+        if(num==1)
+            count+=1;
+        if(count==n)
+            return i;
+        i+=1;
+    }
+}
+
+int main(){
+    int n=150;
+    cout<<findNthUgly(n);
+}
