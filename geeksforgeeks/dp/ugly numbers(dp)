@@ -1,0 +1,43 @@
+#include <iostream>
+#include <climits>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int NthUgly(int n){
+    int ugly[n];
+    ugly[0]=1;
+    int next_ugly_using_2=2*ugly[0];
+    int next_ugly_using_3=3*ugly[0];
+    int next_ugly_using_5=5*ugly[0];
+    int i=1;
+    int next_ugly;
+    int for_2=0;int for_3=0;int for_5=0;
+    while(i<n){
+        next_ugly=min(next_ugly_using_2,min(next_ugly_using_3,next_ugly_using_5));
+        ugly[i]=next_ugly;
+        
+        if(next_ugly==next_ugly_using_2){
+            for_2++;
+            next_ugly_using_2=ugly[for_2]*2;
+        }
+        if(next_ugly==next_ugly_using_3){
+            for_3++;
+            next_ugly_using_3=ugly[for_3]*3;
+        }
+        if(next_ugly==next_ugly_using_5){
+            for_5++;
+            next_ugly_using_5=ugly[for_5]*5;
+        }
+        i++;
+    }
+    return ugly[n-1];
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	cout<<NthUgly(n);
+	return 0;
+}
