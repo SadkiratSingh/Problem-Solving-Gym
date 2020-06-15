@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int Binomial(int n,int r){
+    if(n==r){
+        return 1;
+    }
+    if(r==0){
+        return 1;
+    }
+    else{
+        return Binomial(n-1,r)+Binomial(n-1,r-1);
+    }
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	int r;
+	cin>>r;
+	cout<<Binomial(n,r);
+}
