@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+long int nthCatalan(int n,long int* arr){
+   if(n==0){
+       arr[n]=1;
+       return arr[n];
+   }
+   if(n==1){
+       arr[n]=1;
+       return arr[n];
+   }
+   if(arr[n]!=-1){
+       return arr[n];
+   }
+   else{
+      long int result=0;
+      for(int i=0;i<n;i++){
+          result+=nthCatalan(i,arr)*nthCatalan(n-i-1,arr);
+      }
+      arr[n]=result;
+      return arr[n];
+   }
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	long int arr[n+1];
+	for(int i=0;i<n+1;i++){
+	    arr[i]=-1;
+	}
+	cout<<nthCatalan(n,arr);
+	return 0;
+}
