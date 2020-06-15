@@ -1,1 +1,42 @@
 
+#include <iostream>
+using namespace std;
+
+long long int Binomial(int n,int r,long long int** bcs){
+    if(n==r){
+        bcs[n][r]=1;
+        return bcs[n][r];
+    }
+    if(r==0){
+        bcs[n][r]=1;
+        return bcs[n][r];
+    }
+    if(n<r){
+        return bcs[n][r];
+    }
+    if(bcs[n][r]!=-1){
+        return bcs[n][r];
+    }
+    else{
+        bcs[n][r]=Binomial(n-1,r-1,bcs)+Binomial(n-1,r,bcs);
+        return bcs[n][r];
+    }
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	int r;
+	cin>>r;
+	long long int** bcs=new long long int*[n+1];
+	for(int i=0;i<=n;i++){
+	    bcs[i]=new long long int[r+1];
+	}
+	for(int i=0;i<=n;i++){
+	    for(int j=0;j<=r;j++){
+	        bcs[i][j]=-1;
+	    }
+	}
+	cout<<Binomial(n,r,bcs);
+}
