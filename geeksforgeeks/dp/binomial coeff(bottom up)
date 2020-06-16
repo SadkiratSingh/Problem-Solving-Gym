@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+long long int Binomial(int n,int r,long long int** bcs){
+   for(int i=0;i<=n;i++){
+       for(int j=0;j<=r;j++){
+           if(j==0){
+               bcs[i][j]=1;
+           }
+           else if(j==i){
+               bcs[i][j]=1;
+           }
+           else if(j<i){
+               bcs[i][j]=bcs[i-1][j-1]+bcs[i-1][j];
+           }
+       }
+   }
+   return bcs[n][r];
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	int r;
+	cin>>r;
+	long long int ** bcs=new long long int* [n+1];
+	for(int i=0;i<=n;i++){
+	    bcs[i]=new long long int [r+1];
+	}
+	for(int i=0;i<=n;i++){
+	    for(int j=0;j<=r;j++){
+	        bcs[i][j]=-1;
+	    }
+	}
+	cout<<Binomial(n,r,bcs);
+	
+	return 0;
+}
