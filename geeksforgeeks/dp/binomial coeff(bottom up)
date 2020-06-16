@@ -37,3 +37,29 @@ int main() {
 	
 	return 0;
 }
+
+//O(n) and O(1)
+#include <iostream>
+using namespace std;
+
+long long int Binomial(int n,int k){
+    long long int ans=1;
+    if(k>n-k){
+        k=n-k;
+    }
+    for(int i=0;i<k;i++){
+        ans=ans*(n-i);
+        ans=ans/(i+1);
+    }
+    return ans;
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	int k;
+	cin>>k;
+	cout<<Binomial(n,k);
+}
+
