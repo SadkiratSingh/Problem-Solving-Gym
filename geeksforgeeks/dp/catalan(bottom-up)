@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+long long int NthCatalan(int n,long long int* catalan){
+    for(int i=0;i<=n;i++){
+        if(i==0|| i==0){
+            catalan[i]=1;
+        }
+        else{
+            long long int result=0;
+            for(int j=0;j<i;j++){
+                result+=catalan[j]*catalan[i-j-1];
+            }
+            catalan[i]=result;
+        }
+    }
+    return catalan[n];
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	long long int* catalan=new long long int[n+1];
+	cout<<NthCatalan(n,catalan);
+	return 0;
+}
