@@ -1,0 +1,39 @@
+def print_rangoli(size):
+    # your code goes here
+    alpha_list=[]
+    u=97
+    for x in range(size):
+        alpha_list.append(chr(u+x))
+    alpha_list.reverse()
+    
+    rangoli=''
+    
+    for x in range(size):
+        alpha_num=2*x+1
+        dash_num=2*(len(alpha_list)-1-x)
+        dashes='-'*dash_num
+        rangoli+=dashes
+        for y in range(alpha_num):
+            if y<=(alpha_num/2):
+                rangoli+=alpha_list[y]+'-'
+            elif y>(alpha_num/2):
+                rangoli+=alpha_list[alpha_num-1-y]+'-'
+        rangoli=rangoli.rstrip('-')
+        rangoli+=dashes
+        rangoli+='\n'
+    
+    for x in range(1,size):
+        alpha_num=2*(len(alpha_list)-x)-1
+        dash_num=2*(x)
+        dashes='-'*dash_num
+        rangoli+=dashes
+        for y in range(alpha_num):
+            if y<=(alpha_num/2):
+                rangoli+=alpha_list[y]+'-'
+            elif y>(alpha_num/2):
+                rangoli+=alpha_list[alpha_num-1-y]+'-'
+        rangoli=rangoli.rstrip('-')
+        rangoli+=dashes
+        rangoli+='\n'
+        
+    print(rangoli)
