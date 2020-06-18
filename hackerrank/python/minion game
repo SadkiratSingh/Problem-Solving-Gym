@@ -5,6 +5,7 @@ def minion_game(string):
     vowels='AEIOU'
     for i in range(0,len(string)):
         if string[i] in vowels:
+        ##take care of complexity here
             kevin_score+=len(s)-i
         else:
             stuart_score+=len(s)-i
