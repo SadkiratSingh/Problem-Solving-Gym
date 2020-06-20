@@ -1,0 +1,19 @@
+bool comp(int a,int b){
+    return a>b;
+}
+
+int CZXP(vector<int>& V){
+    unordered_map<int,int>um;
+    sort(V.begin(),V.end(),comp);
+    for(int x:V){
+        um[x]+=1;
+    }
+    int count=0;
+    for(auto x:um){
+        if(x.second>1){
+            int n=x.second;
+            count+=(n*(n-1))/2;
+        }
+    }
+    return count;
+}
