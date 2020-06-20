@@ -13,3 +13,23 @@ int peakElement(int arr[], int n)
           return i;
    }
 }
+
+
+int peakElementUtil(int arr[],int n,int low,int high){
+    int mid=low+(high-low)/2;
+    if((mid==0 || arr[mid-1]<=arr[mid]) && (mid==n-1 || arr[mid+1]<arr[mid]))
+         return mid;
+    if(arr[mid-1]>arr[mid])
+       return peakElementUtil(arr,n,low,mid-1);
+    else
+       return peakElementUtil(arr,n,mid+1,high);
+    
+}
+
+int peakElement(int arr[], int n)
+{
+   // Your code here
+   int low=0;
+   int high=n-1;
+   return peakElementUtil(arr,n,low,high);
+}
