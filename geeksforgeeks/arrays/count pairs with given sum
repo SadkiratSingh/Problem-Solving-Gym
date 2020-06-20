@@ -1,0 +1,19 @@
+int CPGS(vector<int>& V,int sum){
+    unordered_map<int,int>um;
+    for(int x:V){
+      um[x]+=1;
+    }
+    int count=0;
+    for(auto x:um){
+        int sub=sum-x.first;
+        if(um.find(sub)!=um.end()){
+            if(sub==x.first){
+                count+=(um[sub]-1)*x.second;
+            }
+            else{
+                count+=um[sub]*x.second;
+            }
+        }
+    }
+    return count/2;
+}
