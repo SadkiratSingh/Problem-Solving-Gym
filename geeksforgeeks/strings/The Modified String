@@ -1,0 +1,28 @@
+int modified (string a){
+    // Your code here
+    int min_chars=0;
+    int count=0;
+    char store_prev;
+    int curr=0;
+    while(curr<a.size()){
+        if(curr==0){
+            store_prev=a[curr];
+            count++;
+            curr++;
+        }
+        else if(a[curr]!=store_prev){
+            count=1;
+            store_prev=a[curr];
+            curr++;
+        }
+        else{
+            count++;
+            if(count==3){
+                min_chars++;
+                count=1;
+            }
+            curr++;
+        }
+    }
+    return min_chars;
+}
