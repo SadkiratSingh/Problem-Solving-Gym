@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+long int findNth(int n){
+    string numstr;
+    while(n>0){
+        if(n%4==1){
+            numstr.insert(0,"2");
+        }
+        else if(n%4==2){
+            numstr.insert(0,"3");
+        }
+        else if(n%4==3){
+            numstr.insert(0,"5");
+        }
+        else{
+            numstr.insert(0,"7");
+        }
+        if(n%4==0){
+            n--;
+        }
+        n=floor(n/4);
+    }
+    long int num=stol(numstr);
+    return num;
+}
