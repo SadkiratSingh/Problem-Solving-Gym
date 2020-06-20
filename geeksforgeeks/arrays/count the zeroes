@@ -1,0 +1,16 @@
+int findZeroes(vector<int>& z){
+    int low=0;
+    int high=z.size()-1;
+    int mid;
+    while(low<=high){
+        int mid=low+(high-low)/2;
+        if(z[mid]==0)
+          high=mid-1;
+        else if(z[mid]==1)
+          low=mid+1;
+    }
+    if(z[low]==0)
+      return z.size()-low;
+    else
+      return z.size()-low-1;
+}
