@@ -9,8 +9,8 @@ int findZeroes(vector<int>& z){
         else if(z[mid]==1)
           low=mid+1;
     }
-    if(z[low]==0)
-      return z.size()-low;
+    if(low==z.size())
+      return 0;
     else
-      return z.size()-low-1;
+      return z.size()-low;
 }
