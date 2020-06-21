@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int FUP(int r,int c,int** dp){
+    if(r<0 || c<0)
+      return 0;
+    if(r==0 && c==0){
+      dp[r][c]=1;
+      return dp[r][c];
+    }
+    if(dp[r][c]!=-1)
+      return dp[r][c];
+    else{
+        int ups=FUP(r-1,c,dp)+FUP(r,c-1,dp);
+        dp[r][c]=ups;
+        return dp[r][c];
+    }
+}
+
+int main()
+ {
+	//code
+	int T;
+	cin>>T;
+	for(int i=0;i<T;i++){
+    	int row;
+    	int column;
+    	cin>>row;
+    	cin>>column;
+    	int** dp=new int* [row];
+    	for(int i=0;i<row;i++){
+    	    dp[i]=new int[column];
+    	}
+    	for(int i=0;i<row;i++){
+    	    for(int j=0;j<column;j++){
+    	        dp[i][j]=-1;
+    	    }
+    	}
+    	cout<<FUP(row-1,column-1,dp)<<endl;
+	}
+	return 0;
+}
