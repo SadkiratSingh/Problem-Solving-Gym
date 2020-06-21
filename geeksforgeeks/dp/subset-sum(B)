@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int isSSP(int* set,int n,int sum){
+   if(sum==0){
+       return true;
+   }
+   if(sum<0 ||(sum>0 && n==0)){
+       return false;
+   }
+   return isSSP(set,n-1,sum-set[n-1]) || isSSP(set,n-1,sum);
+}
+
+int main() {
+	// your code goes here
+	int set[]={1,2,3,6};
+	int n=sizeof(set)/sizeof(int);
+	int sum=5;
+	cout<<isSSP(set,n,sum);
