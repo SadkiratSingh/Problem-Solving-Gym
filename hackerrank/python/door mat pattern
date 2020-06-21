@@ -1,0 +1,53 @@
+if __name__=='__main__':
+    rows,columns=input().split()
+    rows=int(rows)
+    columns=int(columns)
+    full_pat=''
+    half_pat_rows=(rows-1)//2
+    ##### first-half ######
+    half_pat_one=''
+    for i in range (1,half_pat_rows+1):
+        lines=2*i-1
+        dots=4*i-4
+        dashes=(columns-(dots+lines+2))//2
+        half_pat_one+='-'*dashes
+        half_pat_one+='.'
+        while lines>0:
+            half_pat_one+='|'
+            if(dots>0):
+                dots=dots-2
+                half_pat_one+='..'
+            lines-=1
+        half_pat_one+='.'
+        half_pat_one+='-'*dashes
+        half_pat_one+='\n'
+    full_pat+=half_pat_one
+    ##### first-half ######
+    
+    #### WELCOME ####
+    full_pat+='-'*((columns-7)//2)
+    full_pat+='WELCOME'
+    full_pat+='-'*((columns-7)//2)
+    full_pat+='\n'
+    #### WELCOME ####
+
+    #### second-half ####
+    half_pat_second=''
+    for i in range (half_pat_rows,0,-1):
+        lines=2*i-1
+        dots=4*i-4
+        dashes=(columns-(dots+lines+2))//2
+        half_pat_second+='-'*dashes
+        half_pat_second+='.'
+        while lines>0:
+            half_pat_second+='|'
+            if(dots>0):
+                dots=dots-2
+                half_pat_second+='..'
+            lines-=1
+        half_pat_second+='.'
+        half_pat_second+='-'*dashes
+        half_pat_second+='\n'
+    full_pat+=half_pat_second
+    #### second-half ####
+    print(full_pat)
