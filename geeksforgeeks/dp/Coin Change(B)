@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+int CC(int* set,int N,int n){
+    if(N==0){
+        return 1;
+    }
+    if(n==0 && N!=0){
+        return 0;
+    }
+    if(set[n-1]>N){
+        return CC(set,N,n-1);
+    }
+    else{
+        int ways=CC(set,N-set[n-1],n)+CC(set,N,n-1);
+        return ways;
+    }
+}
+
+
+int main() {
+	// your code goes here
+	int set[]={1,2,3};
+	int N=4;
+	int n=sizeof(set)/sizeof(int);
+	cout<<CC(set,N,n);
+	return 0;
+}
