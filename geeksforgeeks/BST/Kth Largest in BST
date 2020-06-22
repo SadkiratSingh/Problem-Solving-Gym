@@ -1,0 +1,26 @@
+int kthLargestUtil(Node* root,int L,int& result){
+    if(root && L>=0){
+        L=kthLargestUtil(root->left,L,result);
+        L--;
+        if(L==-1)
+            result=root->data;
+        L=kthLargestUtil(root->right,L,result);
+        return L;
+    }
+    else
+        return L;
+}
+int CountNodes(Node* root){
+    if(root)
+        return 1+CountNodes(root->right)+CountNodes(root->left);
+    else
+        return 0;
+}
+int kthLargest(Node *root, int K)
+{
+    //Your code here
+    int result=-1;
+    int nodes=CountNodes(root);
+    kthLargestUtil(root,nodes-K,result);
+    return result;
+}
