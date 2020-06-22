@@ -10,7 +10,7 @@ int ISS(int* set,int sum,int n,int** dp){
     }
     for(int r=1;r<=n;r++){
         for(int c=1;c<=sum;c++){
-            if(set[r-1]>sum){
+            if(set[r-1]>c){
                 dp[r][c]=dp[r-1][c];
             }
             else{
