@@ -1,0 +1,16 @@
+void storeRange(Node* root,int l,int h,vector<int>& s){
+    if(root){
+        storeRange(root->left,l,h,s);
+        if(root->data>=l && root->data<=h){
+            s.push_back(root->data);
+        }
+        storeRange(root->right,l,h,s);
+    }
+}
+vector<int> printNearNodes(Node *root, int low, int high)
+{
+  // your code goes here
+  vector<int>store_nodes;
+  storeRange(root,low,high,store_nodes);
+  return store_nodes;
+}
