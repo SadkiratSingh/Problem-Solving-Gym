@@ -1,0 +1,49 @@
+Node* findPar(Node* root,Node* x,Node* par){
+    if(x->data>root->data){
+        par=root;
+        return findPar(root->right,x,par);
+    }
+    else if(x->data<root->data){
+        par=root;
+        return findPar(root->left,x,par);
+    }
+    else{
+        return par;
+    }
+}
+
+Node* findMax(Node* root){
+    while(root->right!=NULL){
+        root=root->right;
+    }
+    return root;
+}
+
+Node * inOrderSuccessor(Node *root, Node *x)
+{
+    //Your code here
+    if(x->right){
+        Node* temp=x->right;
+        while(temp->left!=NULL){
+            temp=temp->left;
+        }
+        return temp;
+    }
+    else{
+        Node* par=NULL;
+        par=findPar(root,x,par);
+        Node* max_node=findMax(root);
+        if(x==par->left)
+            return par;
+        else if(x==par->right && x!=max_node){
+            while(par->data<x->data){
+                par=findPar(root,par,NULL);
+            }
+            return par;
+        }
+        else
+            return NULL;
+            
+    }
+    
+}
