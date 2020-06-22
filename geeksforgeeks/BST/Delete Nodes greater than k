@@ -1,0 +1,19 @@
+Node* deleteNode(Node* root, int key)
+{
+    //Your code here
+    if(key>root->data){
+        root->right=deleteNode(root->right,key);
+    }
+    else if(key<root->data){
+        Node* temp=root;
+        root=root->left;
+        delete temp;
+        return deleteNode(root,key);
+    }
+    else if(key==root->data){
+        Node* temp=root;
+        root=root->left;
+        delete temp;
+    }
+    return root;
+}
