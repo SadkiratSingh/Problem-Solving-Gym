@@ -1,0 +1,53 @@
+class Node{
+    public:
+        int data;
+        Node* right;
+        Node* left;
+        
+        Node(int x){
+            data=x;
+            right=NULL;
+            left=NULL;
+        }
+};
+
+Node* constructTree(int* arr,int low,int high){
+    if(high<low)
+        return NULL;
+    int mid=(low+high)/2;
+    Node* root=new Node(arr[mid]);
+    root->left=constructTree(arr,low,mid-1);
+    root->right=constructTree(arr,mid+1,high);
+    return root;
+}
+
+void preOrder(Node* root){
+    if(root){
+        cout<<root->data<<" ";
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+
+void constructTreeUtil(int* arr,int n){
+    Node* root=constructTree(arr,0,n-1);
+    preOrder(root);
+    cout<<endl;
+}
+
+int main()
+ {
+	//code
+	int T;
+	cin>>T;
+	for(int i=0;i<T;i++){
+	    int n;
+	    cin>>n;
+	    int* arr=new int[n];
+	    for(int i=0;i<n;i++){
+	        cin>>arr[i];
+	    }
+	    constructTreeUtil(arr,n);
+	}
+	return 0;
+}
