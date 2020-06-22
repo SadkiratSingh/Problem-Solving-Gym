@@ -1,0 +1,23 @@
+Node* constructTreeUtil(int* post,int beg,int end){
+     if(end<beg)
+       return NULL;
+     Node* root=new Node(post[end]);
+     int i=end-1;
+     while(i>=beg && post[i]>root->data){
+          i--;
+     }
+     root->left=constructTreeUtil(post,beg,i);
+     root->right=constructTreeUtil(post,i+1,end-1);
+     return root;
+}
+
+Node *constructTree (int post[], int size)
+{
+   //code here
+   if(size>0){
+       return constructTreeUtil(post,0,size-1);
+   }
+   else{
+       return NULL;
+   }
+}
