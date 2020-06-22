@@ -1,0 +1,14 @@
+int sumOfLeafNodesUtil(Node* r,int sum){
+    if(r==NULL)
+       return 0;
+    if(!r->left && !r->right){
+       sum+=r->data;
+       return sum;
+    }
+    return sumOfLeafNodesUtil(r->left,sum)+sumOfLeafNodesUtil(r->right,sum);
+}
+int sumOfLeafNodes(Node *r ){
+     /*Your code here */
+     int sum=0;
+     return sumOfLeafNodesUtil(r,sum);
+}
