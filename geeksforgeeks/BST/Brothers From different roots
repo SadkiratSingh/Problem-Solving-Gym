@@ -1,0 +1,26 @@
+void inorder_store(Node* root1,unordered_set<int>& um,int x){
+    if(root1){
+        inorder_store(root1->left,um,x);
+        int diff=x-(root1->data);
+        um.insert(diff);
+        inorder_store(root1->right,um,x);
+    }
+}
+void inorder_check(Node* root2,unordered_set<int>& um,int& c){
+    if(root2){
+        inorder_check(root2->left,um,c);
+        if(um.find(root2->data)!=um.end()){
+            c+=1;
+        }
+        inorder_check(root2->right,um,c);
+    }
+}
+int countPairs(Node* root1, Node* root2, int x)
+{
+    // Code here
+    unordered_set<int>um;
+    inorder_store(root1,um,x);
+    int count=0;
+    inorder_check(root2,um,count);
+    return count;
+}
