@@ -1,0 +1,34 @@
+int sumOfNodes(Node* root,bool& checksum){
+    if(!root)
+        return 0;
+    else if(!root->left && !root->right)
+        return root->data;
+    else{
+        int leftsum=sumOfNodes(root->left,checksum);
+        int rightsum=sumOfNodes(root->right,checksum);
+        if(root->data!=leftsum+rightsum){
+            checksum=false;
+            return root->data+leftsum+rightsum;
+        }
+        else
+            return 2*root->data;
+    }
+}
+
+bool isSumTree(Node* root)
+{
+     // Your code here
+     if(!root)
+         return true;
+     else if(!root->left && !root->right){
+         return true;
+     }
+     else{
+         bool checksum=true;
+         sumOfNodes(root,checksum);
+         if(checksum)
+             return true;
+         else
+             return false;
+     }
+}
