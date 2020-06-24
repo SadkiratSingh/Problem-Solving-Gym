@@ -1,0 +1,15 @@
+int FP(int n){
+    if(n==0||n==1){
+        return 1;
+    }
+    else{
+        return FP(n-1) + (n-1)*FP(n-2);
+    }
+}
+
+int main() {
+	// your code goes here
+	int n=5;
+	cout<<FP(n);
+	return 0;
+}
