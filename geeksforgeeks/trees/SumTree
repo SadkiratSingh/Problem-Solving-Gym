@@ -29,6 +29,44 @@ bool isSumTree(Node* root)
      }
 }
 
+#### O(n) with bottom up approach ###
+
+bool isLeaf(Node* node){
+    return !node->left && !node->right;
+}
+
+bool isSumTree(Node* root)
+{
+     // Your code here
+     if(!root)
+         return true;
+     else if(isLeaf(root))
+         return true;
+     else{
+         //bottom up approach//
+         if(isSumTree(root->left) && isSumTree(root->right)){
+             int ls,rs;
+             
+             if(!root->left)
+                 ls=0;
+             else if(isLeaf(root->left))
+                 ls=root->left->data;
+             else
+                 ls=2*(root->left->data);
+            
+             if(!root->right)
+                 rs=0;
+             else if(isLeaf(root->right))
+                 rs=root->right->data;
+             else
+                 rs=2*root->right->data;
+             
+             return root->data==ls+rs;
+         }
+         return false;
+     }
+}
+
 
 ##### Hack method for O(n) #####
 int sumOfNodes(Node* root,bool& checksum){
@@ -41,10 +79,8 @@ int sumOfNodes(Node* root,bool& checksum){
         int rightsum=sumOfNodes(root->right,checksum);
         if(root->data!=leftsum+rightsum){
             checksum=false;
-            return root->data+leftsum+rightsum;
         }
-        else
-            return 2*root->data;
+        return root->data+leftsum+rightsum;
     }
 }
 
