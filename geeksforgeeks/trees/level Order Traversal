@@ -1,0 +1,21 @@
+#### Time->O(n) and Space O(n)
+
+vector<int> levelOrder(Node* node)
+{
+  //Your code here
+  queue<Node*>levelQ;
+  vector<int>VQ;
+  if(node){
+      levelQ.push(node);
+      while(!levelQ.empty()){
+          Node* p=levelQ.front();
+          VQ.push_back(p->data);
+          levelQ.pop();
+          if(p->left)
+              levelQ.push(p->left);
+          if(p->right)
+              levelQ.push(p->right);
+      }
+  }
+  return VQ;
+}
