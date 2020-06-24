@@ -1,3 +1,36 @@
+#### following implementation takes O(n^2) in worst case and O(nlogn) in avg case ####
+
+bool isLeaf(Node* node){
+    return !node->left && !node->right;
+}
+
+int sum(Node* root){
+    if(!root)
+        return 0;
+    else
+        return root->data+sum(root->left)+sum(root->right);
+}
+
+bool isSumTree(Node* root)
+{
+     // Your code here
+     if(!root)
+         return true;
+     else if(isLeaf(root))
+         return true;
+     else{
+         int leftSum=sum(root->left);
+         int rightSum=sum(root->right);
+         if(root->data!=leftSum+rightSum)
+             return false;
+         else{
+             return (isSumTree(root->right) && isSumTree(root->left));
+         }
+     }
+}
+
+
+##### Hack method for O(n) #####
 int sumOfNodes(Node* root,bool& checksum){
     if(!root)
         return 0;
