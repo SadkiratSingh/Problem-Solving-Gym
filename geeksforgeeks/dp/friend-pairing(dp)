@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+long long int FP(int n,long long int* fp){
+    fp[0]=1;
+    fp[1]=1;
+    for(int i=2;i<=n;i++){
+        fp[i]=(fp[i-1]+(i-1)*fp[i-2])%(1000000007);
+    }
+    return fp[n];
+}
+
+int main()
+ {
+	//code
+	int T;
+	cin>>T;
+	int i=0;
+	while(i<T){
+	    int n;
+	    cin>>n;
+	    long long int* fp=new long long int[n+1];
+	    cout<<FP(n,fp)<<endl;
+	    i++;
+	}
+	return 0;
+}
