@@ -1,0 +1,33 @@
+##### O(n) implementation ####
+void maxNodeLevelUtil(Node *root,int level,map<int,int>& um){
+    if(root){
+        um[level]+=1;
+        maxNodeLevelUtil(root->left,level+1,um);
+        maxNodeLevelUtil(root->right,level+1,um);
+    }
+}
+int maxNodeLevel(Node* root){
+ // Add your code here
+    map<int,int>um;
+    int level=0;
+    maxNodeLevelUtil(root,level,um);
+    if(um.empty())
+        return 0;
+    else{
+        int flag=0;
+        for(int i=1;i<um.size();i++){
+            if(um[i]!=um[i-1])
+                flag=1;
+        }
+        if(flag==0)
+            return 0;
+        else{
+            int maxl=0;
+            for(int i=1;i<um.size();i++){
+                if(um[i]>um[i-1])
+                    maxl=i;
+            }
+            return maxl;
+        }
+    }
+}
