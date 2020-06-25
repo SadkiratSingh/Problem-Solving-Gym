@@ -1,0 +1,26 @@
+#### O(n) implementation ####
+
+bool isLeaf(Node* root){
+    if(root)
+        return !root->left && !root->right;
+}
+
+void hasPathSumUtil(Node* node,int sum,bool& check){
+    if(isLeaf(node) && !check){
+        sum-=node->data;
+        if(sum==0)
+            check=true;
+    }
+    else if(node && !check){
+        sum-=node->data;
+        hasPathSumUtil(node->left,sum,check);
+        hasPathSumUtil(node->right,sum,check);
+    }
+}
+
+bool hasPathSum(Node *node, int sum) {
+    // Your code here
+    bool check=false;
+    hasPathSumUtil(node,sum,check);
+    return check;
+}
