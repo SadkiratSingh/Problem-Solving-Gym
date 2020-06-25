@@ -1,0 +1,17 @@
+void printKUtil(Node* root,int k,int level){
+    if(root){
+        if(level==k){
+            cout<<root->data<<" ";
+        }
+        else{
+           printKUtil(root->left,k,level+1);
+           printKUtil(root->right,k,level+1);
+        }
+    }
+}
+void printKdistance(struct Node *root, int k)
+{
+  // Your code here
+  int level=0;
+  printKUtil(root,k,level);
+}
