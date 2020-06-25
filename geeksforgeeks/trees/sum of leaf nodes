@@ -1,0 +1,24 @@
+int isLeaf(Node* root){
+    if(root){
+        return !root->left && !root->right;
+    }
+}
+
+int sumLeaf(Node* root)
+{
+    // Code here
+    if(root){
+        if(isLeaf(root)){
+            return root->data;
+        }
+        else{
+            int sum=0;
+            sum+=sumLeaf(root->left);
+            sum+=sumLeaf(root->right);
+            return sum;
+        }
+    }
+    else{
+        return 0;
+    }
+}
