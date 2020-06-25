@@ -1,0 +1,22 @@
+##### O(n) implementation ####
+void maxLevelSumUtil(Node* root,int level,map<int,int>& um){
+    if(root){
+        um[level]+=root->data;
+        maxLevelSumUtil(root->left,level+1,um);
+        maxLevelSumUtil(root->right,level+1,um);
+    }
+}
+int maxLevelSum(Node* root) {
+    // Your code here
+    map<int,int>um;
+    int level=0;
+    maxLevelSumUtil(root,level,um);
+    if(um.empty())
+        return 0;
+    else{
+        int maxsum=um[0];
+        for(int i=1;i<um.size();i++)
+            maxsum=max(maxsum,um[i]);
+        return maxsum;
+    }
+}
