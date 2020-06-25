@@ -1,0 +1,20 @@
+void printAncestorsUtil(Node* root,int target,bool& found){
+    if(root && !found){
+        if(root->data==target)
+            found=true;
+        else{
+            printAncestorsUtil(root->left,target,found);
+            printAncestorsUtil(root->right,target,found);
+            if(found==true)
+                cout<<root->data<<" ";
+        }
+    }
+}
+
+bool printAncestors(struct Node *root, int target)
+{
+     // Code here
+     bool found=false;
+     printAncestorsUtil(root,target,found);
+     return found;
+}
