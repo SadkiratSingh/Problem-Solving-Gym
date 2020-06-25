@@ -1,0 +1,32 @@
+###### O(n) implementation How??? #####
+
+void printSpiral(Node *root)
+{
+    //Your code here
+    if(root==NULL)
+        return;
+    stack<Node*>stk1;
+    stack<Node*>stk2;
+    stk1.push(root);
+    while(!stk1.empty() || !stk2.empty()){
+        while(!stk1.empty()){
+            Node* t=stk1.top();
+            if(t->right)
+                stk2.push(t->right);
+            if(t->left)
+                stk2.push(t->left);
+            cout<<t->data<<" ";
+            stk1.pop();
+        }
+        
+        while(!stk2.empty()){
+            Node* t=stk2.top();
+            if(t->left)
+                stk1.push(t->left);
+            if(t->right)
+                stk1.push(t->right);
+            cout<<t->data<<" ";
+            stk2.pop();
+        }
+    }
+}
