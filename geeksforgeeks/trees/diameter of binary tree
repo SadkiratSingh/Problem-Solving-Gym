@@ -1,0 +1,43 @@
+####### O(n^2) implementation #######
+
+int height(Node* node){
+    if(node)
+        return 1+max(height(node->left),height(node->right));
+    else
+        return 0;
+}
+
+int diameter(Node* node) {
+    // Your code here
+    if(node){
+        int ldiameter=diameter(node->left);
+        int rdiameter=diameter(node->right);
+        int h=height(node->left)+height(node->right)+1;
+        return max(max(ldiameter,rdiameter),h);
+    }
+    else
+        return 0;
+}
+
+##### O(n) implementation(very tricky!!) ######
+
+int diameterUtil(Node* node,int& height){
+    if(node){
+        int lh=0;int rh=0;
+        int ldiameter=diameterUtil(node->left,lh);
+        int rdiameter=diameterUtil(node->right,rh);
+        height=max(lh,rh)+1;
+        return max(max(ldiameter,rdiameter),lh+rh+1);
+    }
+    else{
+        return 0;
+        height=1;
+    }
+}
+
+
+int diameter(Node* node) {
+    // Your code here
+    int height;
+    return diameterUtil(node,height);
+}
