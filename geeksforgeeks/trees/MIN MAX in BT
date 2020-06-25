@@ -1,0 +1,38 @@
+int isLeaf(node* root){
+    if(root)
+        return !root->left && !root->right;
+}
+int findMax(struct node* root)
+{
+// Your code goes here
+   if(root){
+       if(isLeaf(root))
+           return root->data;
+       else{
+           int maxe=root->data;
+           maxe=max(maxe,findMax(root->left));
+           maxe=max(maxe,findMax(root->right));
+           return maxe;
+       }
+   }
+   else
+       return INT_MIN;
+}
+
+// Returns minimum value in a given Binary Tree
+int findMin(struct node* root)
+{
+// Your code goes here
+   if(root){
+       if(isLeaf(root))
+           return root->data;
+       else{
+           int mine=root->data;
+           mine=min(mine,findMin(root->left));
+           mine=min(mine,findMin(root->right));
+           return mine;
+       }
+   }
+   else
+       return INT_MAX;
+}
