@@ -1,0 +1,36 @@
+### O(n) implementation ###
+
+bool isLeaf(Node* root){
+    if(root)
+        return !root->left && !root->right;
+}
+
+bool isBalancedUtil(Node* root,int& h){
+    if(root){
+        int lht=0;int rht=0;
+        if(isBalancedUtil(root->left,lht)&&isBalancedUtil(root->right,rht)){
+            int diff=abs(lht-rht);
+            h=max(lht,rht)+1;
+            if(diff>=2)
+                return false;
+            else
+                return true;
+        }
+        return false;
+    }
+    else if(isLeaf(root)){
+        h=1;
+        return true;
+    }
+    else{
+        h=0;
+        return true;
+    }
+}
+
+bool isBalanced(Node *root)
+{
+    //  Your Code here
+    int height;
+    return isBalancedUtil(root,height);
+}
