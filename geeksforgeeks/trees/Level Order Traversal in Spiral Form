@@ -1,4 +1,5 @@
 ###### O(n) implementation How??? #####
+###### Try to implement with single queue,stack+queue,recursion ####
 
 void printSpiral(Node *root)
 {
