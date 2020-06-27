@@ -1,0 +1,31 @@
+int Height(Node* root){
+    if(root)
+        return 1+max(Height(root->left),Height(root->right));
+    else
+        return 0;
+}
+void createRightView(Node* root,int level,bool& right){
+    if(root){
+        if(level==0 && !right){
+            cout<<root->data<<" ";
+            right=true;
+        }
+        else{
+            createRightView(root->right,level-1,right);
+            createRightView(root->left,level-1,right);
+        }
+    }
+}
+void rightView(Node *root)
+{
+   // Your Code here
+   int h=Height(root);
+   int level=0;
+   bool right=false;
+   while(level<h){
+       right=false;
+       createRightView(root,level,right);
+       level++;
+   }
+}
+
