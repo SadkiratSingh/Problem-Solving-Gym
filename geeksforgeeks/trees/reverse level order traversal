@@ -1,0 +1,21 @@
+#### O(n) ####
+void reversePrint(Node *root)
+{
+    //Your code here
+    queue<Node*>Q;
+    stack<int>S;
+    Q.push(root);
+    while(!Q.empty()){
+        Node* t=Q.front();
+        S.push(t->data);
+        Q.pop();
+        if(t->right)
+            Q.push(t->right);
+        if(t->left)
+            Q.push(t->left);
+    }
+    while(!S.empty()){
+        cout<<S.top()<<" ";
+        S.pop();
+    }
+}
