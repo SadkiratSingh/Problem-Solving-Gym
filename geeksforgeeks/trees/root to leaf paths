@@ -1,0 +1,26 @@
+bool isLeaf(Node* root){
+    if(root)
+        return !root->left && !root->right;
+}
+
+void printPathsUtil(Node* root,string S){
+    if(root){
+        if(isLeaf(root)){
+            S+=to_string(root->data)+" #";
+            cout<<S;
+        }
+        else{
+            S+=to_string(root->data)+" ";
+            printPathsUtil(root->left,S);
+            printPathsUtil(root->right,S);
+        }
+    }
+}
+
+void printPaths(Node* root)
+{
+    // Code here
+    string S="";
+    printPathsUtil(root,S);
+    cout<<endl;
+}
