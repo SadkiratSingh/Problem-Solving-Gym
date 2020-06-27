@@ -1,0 +1,37 @@
+####### O(n) implementation #######
+int levelNodeCount(Node* node,map<int,int>&um,int level){
+    if(node){
+        um[level]+=1;
+        int lth=levelNodeCount(node->left,um,level+1);
+        int rth=levelNodeCount(node->right,um,level+1);
+        int height=max(lth,rth)+1;
+        return height;
+    }
+    else
+        return 0;
+}
+void levelOrder(Node* node)
+{
+  //Your code here
+  map<int,int>um;
+  int level=0;
+  int height=levelNodeCount(node,um,level);
+  queue<Node*>Q;
+  Q.push(node);
+  int i=0;
+  while(i<height){
+      int lcount=um[i];
+      while(lcount!=0){
+          Node* t=Q.front();
+          cout<<t->data<<" ";
+          Q.pop();
+          if(t->left)
+              Q.push(t->left);
+          if(t->right)
+              Q.push(t->right);
+          lcount--;
+      }
+      cout<<"$"<<" ";
+      i++;
+  }
+}
