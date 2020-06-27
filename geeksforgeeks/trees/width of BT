@@ -1,0 +1,21 @@
+void getMaxWidthUtil(Node* root,int level,map<int,int>& um){
+    if(root){
+        um[level]+=1;
+        getMaxWidthUtil(root->left,level+1,um);
+        getMaxWidthUtil(root->right,level+1,um);
+    }
+}
+int getMaxWidth(Node* root)
+{
+    
+   // Your code here
+   int level=0;
+   map<int,int>um;
+   getMaxWidthUtil(root,level,um);
+   int w=um[0];
+   for(int i=1;i<um.size();i++){
+       w=max(um[i],um[i-1]);
+   }
+   return w;
+}
+
