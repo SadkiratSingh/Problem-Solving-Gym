@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        map<int,int>om;
+        for(int i=0;i<nums.size();i++)
+            om[nums[i]]+=1;
+        vector<int>ans(k);
+        int i=0;
+        while(i<k){
+            int maxf=INT_MIN;
+            int obj;
+            for(auto x:om){
+                if(x.second>maxf){
+                    maxf=x.second;
+                    obj=x.first;
+                }
+            }
+            ans[i]=obj;
+            om.erase(obj);
+            i++;
+        }
+        return ans;
+    }
+};
