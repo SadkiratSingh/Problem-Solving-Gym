@@ -1,0 +1,18 @@
+class Solution {
+public:
+    double powUtil(double x, long n){
+        if(n<0)
+            return powUtil(1/x,-1*n);
+        else if(n==0)
+            return 1.0;
+        else if(n%2==0){
+            double y=powUtil(x,n/2);
+            return (double)pow(y,2);
+        }
+        else
+            return x*powUtil(x,n-1);
+    }
+    double myPow(double x, int n){
+        return powUtil(x,n);
+    }
+};
