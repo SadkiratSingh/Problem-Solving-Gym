@@ -1,0 +1,55 @@
+class Solution {
+public:
+    void startDFS(vector<vector<char>>& board, string word,int i,int j,int r,int c,int index,int& flag,
+                  int** visited){
+        if((i>=0 && i<r) && (j>=0 && j<c) && visited[i][j]==0 && flag==0){
+            cout<<i<<j<<" ";
+            if(board[i][j]==word[index]){
+                cout<<i<<j<<" ";
+                visited[i][j]=1;
+                index+=1;
+                if(index==word.size()){
+                    flag=1;
+                }
+                else{
+                    startDFS(board,word,i+1,j,r,c,index,flag,visited);
+                    startDFS(board,word,i,j+1,r,c,index,flag,visited);
+                    startDFS(board,word,i,j-1,r,c,index,flag,visited);
+                    startDFS(board,word,i-1,j,r,c,index,flag,visited);
+                }
+                visited[i][j]=0;
+            }
+            
+        }
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        int r=board.size();
+        int c=board[0].size();
+        int index=0;
+        int flag=0;
+        
+        //visited array//
+        int** visited=new int*[r];
+        for(int i=0;i<r;i++)
+            visited[i]=new int[c];
+        //visited array//
+        
+        //spot first letter,reset visited and return ans//
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(board[i][j]==word[0]){
+                    for(int i=0;i<r;i++){
+                        for(int j=0;j<c;j++)
+                            visited[i][j]=0;
+                    }
+                    startDFS(board,word,i,j,r,c,index,flag,visited);
+                    if(flag==1)
+                        return true;
+                }
+            }
+        }
+        return false;
+        //spot first letter,reset visited and return ans//
+    }
+};
+© 2020 GitHub, Inc.
