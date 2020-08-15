@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+       stack<string>stk;
+       int i=0;
+       string sub;
+       while(i<s.size()){
+           if(s[i]==' '){
+               if(sub.size()>0){
+                   stk.push(sub);
+                   sub.clear();
+               }
+           }
+           else
+               sub+=s[i];
+           i+=1;
+       }
+       if(sub.size()>0){
+           stk.push(sub);
+           sub.clear();
+       }
+       string ans;
+       while(!stk.empty()){
+           ans+=stk.top();
+           if(stk.size()>1)
+               ans+=" ";
+           stk.pop();
+       }
+       return ans;
+    }
+};
