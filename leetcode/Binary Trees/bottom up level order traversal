@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int binarytreeHeight(TreeNode* root){
+        if(root)
+            return max(binarytreeHeight(root->left),binarytreeHeight(root->right))+1;
+        else
+            return 0;
+    }
+    void levelOrderBottomUtil(TreeNode* root,int level,vector<vector<int>>& store,int index){
+        if(root && level>=0){
+            levelOrderBottomUtil(root->left,level-1,store,index);
+            levelOrderBottomUtil(root->right,level-1,store,index);
+            if(level==0)
+                store[index].push_back(root->val);
+        }
+    }
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        int h=binarytreeHeight(root);
+        int level=h-1;
+        vector<vector<int>>store(h);
+        int index=-1;
+        while(level>=0){
+            index++;
+            levelOrderBottomUtil(root,level,store,index);
+            level-=1;
+        }
+        return store;
+    }
+};
