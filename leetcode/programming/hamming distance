@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        vector<int>bx;
+        vector<int>by;
+        while(x>0 || y>0){
+            if(x>0){
+                bx.push_back(x%2);
+                x=x/2;
+            }
+            if(y>0){
+                by.push_back(y%2);
+                y=y/2;
+            }
+        }
+        int high=max(bx.size(),by.size());
+        int diff;
+        if(bx.size()>by.size()){
+            diff=bx.size()-by.size();
+            for(int i=0;i<diff;i++)
+                by.insert(by.end(),0);
+        }
+        else{
+            diff=by.size()-bx.size();
+            for(int i=0;i<diff;i++)
+                bx.insert(bx.end(),0);
+        }
+        int hd=0;
+        for(int i=high-1;i>=0;i--){
+            if(bx[i]!=by[i])
+                hd++;
+        }
+        return hd;
+    }
+};
+
+// a better approach using bitwise operators //
+class Solution {
+public:
+    int hammingDistance(int x, int y){
+        int result=0;
+        while(x>0 || y>0){
+            result+=(x%2)^(y%2);
+            x=x>>1;
+            y=y>>1;
+        }
+        return result;
+    }
+};
