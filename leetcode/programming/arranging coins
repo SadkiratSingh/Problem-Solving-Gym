@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int arrangeCoins(int n) {
+       int lvl_coins=1;
+        int till_prev_lvl=0;
+        long total=0;
+        while(true){
+            total+=lvl_coins;
+            if(total>n){
+                if(lvl_coins>n-till_prev_lvl)
+                    return lvl_coins-1;
+            }
+            else{
+                till_prev_lvl=total;
+                lvl_coins++;
+            }
+        }
+    }
+};
