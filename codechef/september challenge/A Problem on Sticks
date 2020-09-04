@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int optimize(vector<int>& holder,int arr_size){
+    int i=0;
+    priority_queue<int>optimizer;
+    set<int>s;
+    for(int x:holder){
+        if(x!=0)
+            s.insert(x);
+    }
+    for(auto x:s)
+        optimizer.push(x);
+    
+    int op=0;
+    while(!optimizer.empty()){
+        int longest_stick=optimizer.top();
+        optimizer.pop();
+        int cutter,cut_stick;
+        if(optimizer.size()>=1){
+            cutter=optimizer.top();
+            cut_stick=longest_stick-cutter;
+        }
+        else{
+            cutter=longest_stick;
+            cut_stick=longest_stick;
+        }
+        for(int i=0;i<arr_size;i++){
+            if(holder[i]==longest_stick)
+                holder[i]-=cut_stick;
+        }
+        op++;
+    }
+    return op;
+}
+
+int main() {
+	// your code goes herE
+	int arr_size;
+	cin>>arr_size;
+	vector<int>holder(arr_size);
+	for(int i=0;i<arr_size;i++){
+	    int stick;
+	    cin>>stick;
+	    holder[i]=stick;
+	}
+	cout<<optimize(holder,arr_size)<<endl;
+	return 0;
+}
