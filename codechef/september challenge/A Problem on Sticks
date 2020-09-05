@@ -2,29 +2,27 @@
 using namespace std;
 
 int optimize(vector<int>& holder,int arr_size){
-    int i=0;
-    priority_queue<int>optimizer;
-    set<int>s;
+    // use set as an optimizer
+    set<int>optimizer;
     for(int x:holder){
         if(x!=0)
-            s.insert(x);
+            optimizer.insert(x);
     }
-    for(auto x:s)
-        optimizer.push(x);
     
-    int op=0;
+    int op=0;// count operations
     while(!optimizer.empty()){
-        int longest_stick=optimizer.top();
-        optimizer.pop();
+        int longest_stick=*(--optimizer.end());
+        optimizer.erase(--optimizer.end());
         int cutter,cut_stick;
-        if(optimizer.size()>=1){
-            cutter=optimizer.top();
-            cut_stick=longest_stick-cutter;
-        }
-        else{
-            cutter=longest_stick;
-            cut_stick=longest_stick;
-        }
+	
+	//decide the cutter size.
+        if(optimizer.size()>=1)
+            cutter=*(--optimizer.end());
+        else
+            cutter=0;
+        cut_stick=longest_stick-cutter;
+	
+	//move the cutter
         for(int i=0;i<arr_size;i++){
             if(holder[i]==longest_stick)
                 holder[i]-=cut_stick;
@@ -36,14 +34,19 @@ int optimize(vector<int>& holder,int arr_size){
 
 int main() {
 	// your code goes herE
-	int arr_size;
-	cin>>arr_size;
-	vector<int>holder(arr_size);
-	for(int i=0;i<arr_size;i++){
-	    int stick;
-	    cin>>stick;
-	    holder[i]=stick;
+	int T;
+	cin>>T;
+	while(T>0){
+    	int arr_size;
+    	cin>>arr_size;
+    	vector<int>holder(arr_size);
+    	for(int i=0;i<arr_size;i++){
+    	    int stick;
+    	    cin>>stick;
+    	    holder[i]=stick;
+    	}
+    	cout<<optimize(holder,arr_size)<<endl;
+    	T--;
 	}
-	cout<<optimize(holder,arr_size)<<endl;
 	return 0;
 }
