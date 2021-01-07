@@ -1,0 +1,48 @@
+class Solution {
+public:
+    string decodeString(string s) {
+        stack<string>sh;
+        stack<int>num;
+        int i=0;
+        string sub;
+        string n;
+        while(i<s.size()){
+            if(s[i]==']'){
+                int freq;
+                string topstr;
+                if(!num.empty()){
+                    freq=num.top();
+                    num.pop();
+                }
+                if(!sh.empty()){
+                    topstr=sh.top();
+                    sh.pop();
+                }
+                string r;
+                while(freq>0){
+                    r.append(sub);
+                    freq--;
+                }
+                r.insert(0,topstr);
+                sub=r;
+            }
+            else if(s[i]!='['){
+                if(!isdigit(s[i]))
+                    sub=sub+s[i];
+                else{
+                    n=n+s[i];
+                }
+            }
+            else{
+                num.push(stoi(n));
+                n.erase();
+                sh.push(sub);
+                sub.erase();
+            }
+            i++;
+        }
+        return sub;
+    }
+};
+
+//I need to find a way to reduce memory usage//
