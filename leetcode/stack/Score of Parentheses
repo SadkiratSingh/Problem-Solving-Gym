@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int scoreOfParentheses(string S) {
+        stack<pair<char,int>>stk;
+        stack<int>calc;
+        int i=0;
+        while(i<S.size()){
+            if(stk.empty()){
+                calc.push(0);
+                stk.push(make_pair(S[i],0));
+            }
+            else{
+                if((stk.top()).first=='('){
+                    if(S[i]=='('){
+                        if((stk.top()).second>=1){
+                            calc.push(0);
+                        }
+                        (stk.top()).second+=1;
+                        stk.push(make_pair(S[i],0));
+                    }
+                    else if(S[i]==')'){
+                        if((stk.top()).second==0){
+                            calc.top()+=1;
+                        }
+                        else if((stk.top()).second>=1){
+                            int k=(stk.top()).second;
+                            int sum=0;
+                            while(k>0){
+                               sum=sum+calc.top();
+                               calc.pop();
+                               k--;
+                            }
+                            calc.push(sum*2);
+                        }
+                        stk.pop();
+                    }
+                }
+            }
+            i++;
+        }
+        int fsum=0;
+        while(!calc.empty()){
+            fsum+=calc.top();
+            calc.pop();
+        }
+        return fsum;
+    }
+};
+
+//There will be better approach
+//Dont do this thing-->pair<char,int>p=stk.top() OR pair<char,int>(stk.top())
