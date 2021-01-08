@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int findMaxIndex(vector<int>& nums){
+        int index=-1;
+        int max=INT_MIN;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>max){
+                max=nums[i];
+                index=i;
+            }
+        }
+        return index;
+    }
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        int os=nums.size();
+        int mind=findMaxIndex(nums);
+        if(mind<os-1){
+            for(int i=0;i<=mind;i++){
+                nums.push_back(nums[i]);
+            }
+        }
+        vector<int>store(nums.size());
+        stack<int>stk;
+        for(int i=nums.size()-1;i>=0;i--){
+            if(i==nums.size()-1){
+                store[i]=-1;
+                stk.push(i);
+            }
+            else{
+                while(!stk.empty() && nums[stk.top()]<=nums[i])
+                    stk.pop();
+                if(stk.empty())
+                    store[i]=-1;
+                else
+                    store[i]=nums[stk.top()];
+                stk.push(i);
+            }
+        }
+        for(int i=nums.size()-1;i>os-1;i--)
+            store.pop_back();
+        return store;
+    }
+};
+
+//Can this be improved?
