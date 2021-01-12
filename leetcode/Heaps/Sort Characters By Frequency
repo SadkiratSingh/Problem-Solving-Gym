@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+        string r;
+        priority_queue<pair<int,char>>Q;
+        unordered_map<char,int>um;
+        for(int i=0;i<s.size();i++)
+            um[s[i]]+=1;
+        for (auto x:um)
+            Q.push(make_pair(x.second,x.first));
+        while(!Q.empty()){
+            r+=string((Q.top()).first,(Q.top()).second);
+            Q.pop();
+        }
+        return r;
+    }
+};
