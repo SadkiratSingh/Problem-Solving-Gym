@@ -1,0 +1,68 @@
+class Solution {
+public:
+    void formString(string& res,int freq,int ch,int& rind){
+        if(res.empty())
+            res+=string(freq,ch);
+        else{
+            while(freq>0){
+                string chs=string(1,ch);
+                res.insert(rind,chs);
+                if(rind<res.size())
+                    rind+=2;
+                freq--;
+            }
+        }
+    }
+    
+    string reorganizeString(string S) {
+        int total_chars=S.size();
+        string res;
+        int rind=1;
+        
+        unordered_map<char,int>um;       //auxiliary space
+        priority_queue<pair<int,char>>Q; //auxiliary space
+        
+        int internal_spaces=0;
+        for(int i=0;i<total_chars;i++)
+            um[S[i]]+=1;
+        for(auto x:um)
+            Q.push(make_pair(x.second,x.first));
+        
+        int high_char_freq=(Q.top()).first; //highest character frequency
+        formString(res,high_char_freq,(Q.top()).second,rind);
+        Q.pop();
+        internal_spaces=high_char_freq-1;
+    
+        while(!Q.empty() && internal_spaces>0){
+            int curr_chars=(Q.top()).first;
+            char topch=(Q.top()).second;
+            internal_spaces-=curr_chars;
+            if(internal_spaces<0){
+                curr_chars+=internal_spaces;
+                formString(res,curr_chars,topch,rind);
+                Q.pop();
+                Q.push(make_pair(abs(internal_spaces),topch));
+            }
+            else{
+                formString(res,curr_chars,topch,rind);
+                Q.pop();
+            }
+        }
+    
+        if(internal_spaces<=0){
+            while(!Q.empty()){
+                int curr_chars=(Q.top()).first;
+                if(curr_chars>1){
+                    rind=1;
+                    formString(res,curr_chars,(Q.top()).second,rind);
+                }
+                else
+                    res.append(string(1,(Q.top()).second));
+                Q.pop();
+            }
+            return res;
+        }
+        else
+            return "";
+    }
+};
