@@ -7,9 +7,10 @@ public:
                 int o_tfs=tfs;
                 int key=om[node][i].first;// next node to be processed.
                 tfs+=om[node][i].second;// incrementing path cost.
-                if(tfs<dist[key])
+                if(tfs<dist[key]){
                     dist[key]=tfs;
-                DFS(om,dist,key,tfs,source,visited);
+                    DFS(om,dist,key,tfs,source,visited);
+                }
                 tfs=o_tfs; 
             }
             visited[node]=0;
@@ -48,4 +49,4 @@ public:
     }
 };
 
-//Time limit exceeded//
+//quite slow but accepted//
