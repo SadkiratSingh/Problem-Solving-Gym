@@ -1,0 +1,31 @@
+class Solution {
+public:
+    class compareNumbers{
+            public:
+                bool operator()(pair<int,string>& a,pair<int,string>& b){
+                    if(a.first==b.first)
+                        return(a.second<b.second);
+                    return (a.first>b.first);
+
+                }
+    };
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        map<string,int>um;
+        priority_queue<pair<int,string>,vector<pair<int,string>>,compareNumbers>Q;
+        vector<string>res;
+        for(int i=0;i<words.size();i++)
+            um[words[i]]+=1;
+        for(auto x:um){
+            if(Q.size()<=k)
+                Q.push(make_pair(x.second,x.first));
+            if(Q.size()>k)
+                Q.pop();
+        }
+        while(!Q.empty()){
+            res.push_back((Q.top()).second);
+            Q.pop();
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
