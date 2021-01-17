@@ -1,30 +1,22 @@
 class Solution {
 public:
     vector<int> mostCompetitive(vector<int>& nums, int k) {
-        vector<priority_queue<pair<int,int>>>res(k);
-        vector<int>marker(nums.size());
-        int i=0;
-        int index=0;
-        int n=nums.size();
-        while(i<k){
-            int l_i=n-(k-i);
-            for(int j=index;j<=l_i;j++){
-                if(marker[j]==1)
-                    continue;
-                res[i].push({nums[j],j});
-                if(res[i].size()>1)
-                    res[i].pop();
-            }
-            index=(res[i].top()).second;
-            marker[index]=1;
-            i++;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>Q;
+        vector<int>res;
+        int index=nums.size()-k;
+        for(int i=0;i<index;i++){
+            Q.push({nums[i],i});
         }
-        vector<int>r;
-        for(int i=0;i<marker.size();i++)
-            if(marker[i]==1)
-                r.push_back(nums[i]);
-        return r;
+        while(index<nums.size()){
+            Q.push({nums[index],index});
+            int ele=(Q.top()).first;
+            int ele_i=(Q.top()).second;
+            res.push_back(ele);
+            Q.pop();
+            while(!Q.empty() && ele_i>(Q.top()).second)
+                Q.pop();
+            index++;
+        }
+        return res;
     }
 };
-
-//time limit exceeded but passed 83/86
