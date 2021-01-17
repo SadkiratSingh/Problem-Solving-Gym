@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> mostCompetitive(vector<int>& nums, int k) {
+        vector<priority_queue<pair<int,int>>>res(k);
+        vector<int>marker(nums.size());
+        int i=0;
+        int index=0;
+        while(i<k){
+            for(int j=index;j<nums.size();j++){
+                if(marker[j]==1)
+                    continue;
+                res[i].push({nums[j],j});
+                if(res[i].size()>1)
+                    res[i].pop();
+            }
+            index=(res[i].top()).second;
+            marker[index]=1;
+            i++;
+        }
+        vector<int>r;
+        for(int i=0;i<marker.size();i++)
+            if(marker[i]==1)
+                r.push_back(nums[i]);
+        return r;
+    }
+};
+
+//improving the approach...
