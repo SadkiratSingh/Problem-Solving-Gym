@@ -5,8 +5,10 @@ public:
         vector<int>marker(nums.size());
         int i=0;
         int index=0;
+        int n=nums.size();
         while(i<k){
-            for(int j=index;j<nums.size();j++){
+            int l_i=n-(k-i);
+            for(int j=index;j<=l_i;j++){
                 if(marker[j]==1)
                     continue;
                 res[i].push({nums[j],j});
@@ -25,4 +27,4 @@ public:
     }
 };
 
-//improving the approach...
+//time limit exceeded but passed 83/86
