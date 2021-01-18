@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int DFS(map<int,vector<pair<int,int>>>& um,int src,int dst,int K,int e, unordered_map<int,int>& dp){
+        if(e-1>K)
+            return INT_MAX; //if K is reached on reaching a particular station
+        if(src==dst){
+            dp[src]=0;
+            return 0;
+        }
+        if(dp[src]!=INT_MAX)
+            return dp[src];
+        
+        else{
+            int next,n_c,rec;
+            for(int i=0;i<um[src].size();i++){
+                next=um[src][i].second; //next stop
+                n_c=um[src][i].first; //cost to next stop;
+                rec=DFS(um,next,dst,K,e+1,dp); //DFS
+                if(rec<INT_MAX){
+                    if(rec+n_c<dp[src])
+                       dp[src]=rec+n_c;
+                }
+            }
+            return dp[src]; 
+            }
+    }
+    
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
+        map<int,vector<pi>>um; //all flights
+        unordered_map<int,int>dp; //for dynamic programming
+        for(auto x:flights)
+            um[x[0]].push_back({x[2],x[1]});
+        
+        for(int i=0;i<n;i++)
+            dp[i]=INT_MAX;
+        
+        int final_cost= DFS(um,src,dst,K,0,dp);
+        if(final_cost<INT_MAX)
+            return final_cost;
+        else 
+            return -1;
+    }
+};
