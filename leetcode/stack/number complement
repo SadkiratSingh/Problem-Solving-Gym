@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        stack<int>store_bin;
+        int count=0;
+        while(num>0){
+            int rem=num%2;
+            if(rem==0){
+                store_bin.push(1);
+            }
+            else{
+                store_bin.push(0);
+            }
+            num=num/2;
+            count+=1;
+        }
+        int number=0;
+        while(!store_bin.empty()){
+            int x=store_bin.top();
+            int temp=x*pow(2,(count-1));
+            number+=temp;
+            store_bin.pop();
+            count-=1;
+        }
+        return number;
+    }
+};
