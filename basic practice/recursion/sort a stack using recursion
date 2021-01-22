@@ -1,0 +1,44 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+void inserttop(stack<int>& s,int n){
+    if(s.empty()||s.top()<n){//base condition
+        s.push(n);
+        return;
+    }
+    int l=s.top();//part of induction before call
+    s.pop();//part of induction before call
+    inserttop(s,n);//hypothesis
+    s.push(l);//part of induction after call
+}
+
+void sortstack(stack<int>& s){
+   if(s.size()==1){//base case
+       return;
+   }
+   int n=s.top(); //part of induction before call
+   s.pop();//part of induction before call
+   sortstack(s);// hypothesis
+   inserttop(s,n);//part of induction after call
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	stack<int>stk;
+	int i=0;
+	while(i<n){
+	    int num;
+	    cin>>num;
+	    stk.push(num);
+	    i++;
+	}
+	sortstack(stk);
+	while(!stk.empty()){
+	    cout<<stk.top();
+	    stk.pop();
+	}
+	return 0;
+}
