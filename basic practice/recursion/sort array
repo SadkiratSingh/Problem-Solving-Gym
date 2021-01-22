@@ -1,0 +1,19 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void sortarr(vector<int>& arr,int n){
+    if(n==1){ //base condition
+        return;
+    }
+    sortarr(arr,n-1); // hypothesis
+    //fix arr[n-1] into already sorted array as a part of induction;
+    int num=arr[n-1];
+    for(int i=n-1;arr[i-1]>=num;i--){
+        //swap;
+        int temp=arr[i-1];
+        arr[i-1]=num;
+        arr[i]=temp;
+    }
+}
+// similar to insertion sort
