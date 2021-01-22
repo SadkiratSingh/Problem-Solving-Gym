@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL)
+            return 0; // base condtition
+        int l=maxDepth(root->left); //hypothesis
+        int r=maxDepth(root->right); //hypothesis
+        int height=max(l,r)+1; //induction
+        return height;
+    }
+};
