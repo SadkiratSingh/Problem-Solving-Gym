@@ -1,28 +1,28 @@
 class Solution {
 public:
-    void complement(string& s){
-        string news;
-        for(int i=0;i<s.size();i++){
-            if(s[i]=='0')
-                news+='1';
-            else if(s[i]=='1')
-                news+='0';
-        }
-        s.append(news);
-    }
-    void kthGrammarUtil(string& s,int N){
-        if(N==1){//base condition
-            s+='0';
-            return;
-        }
-        kthGrammarUtil(s,N-1);//hypothesis
-        complement(s);//induction
-    }
     int kthGrammar(int N, int K) {
-        string s;
-        kthGrammarUtil(s,N);
-        return s[K-1]-'0';
+        if(N==1 && K==1) //base
+            return 0;
+        
+        //reduced input
+        int n=N-1;
+        int k;
+        if(K%2==0)
+            k=K/2;
+        else
+            k=(K/2)+1;
+        
+        //hypothesis
+        int r=kthGrammar(n,k);
+        
+        //induction
+        if(K%2==0){
+            if(r==0)
+                return 1;
+            else
+                return 0;
+        }
+        else
+            return r; 
     }
 };
-
-//improve it time limit exceeded
