@@ -7,20 +7,20 @@ void inserttop(stack<int>& s,int n){
         s.push(n);
         return;
     }
-    int l=s.top();//part of induction before call
-    s.pop();//part of induction before call
+    int l=s.top();//reducing the input is the aim
+    s.pop();//reducing the input is the aim
     inserttop(s,n);//hypothesis
-    s.push(l);//part of induction after call
+    s.push(l);//induction
 }
 
 void sortstack(stack<int>& s){
    if(s.size()==1){//base case
        return;
    }
-   int n=s.top(); //part of induction before call
-   s.pop();//part of induction before call
+   int n=s.top(); //reducing input
+   s.pop();//reducing input
    sortstack(s);// hypothesis
-   inserttop(s,n);//part of induction after call
+   inserttop(s,n);//inductioh
 }
 
 int main() {
