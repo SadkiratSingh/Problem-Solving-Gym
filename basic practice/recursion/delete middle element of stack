@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void deleteMidUtil(stack<int>& s,int toDelete,int size){
+        if((toDelete==0 && size%2==0)||(toDelete==1 && size%2!=0)){
+            s.pop();//base condition
+            return;//returning here is necessary because we need to return to previous stack frame
+        }
+        int l=s.top();//reducing input
+        s.pop();//reducing input;
+        toDelete-=1;//reducing input;
+        deleteMidUtil(s,toDelete,size);//hypothesis
+        s.push(l);//induction
+    }
+    void deleteMid(stack<int>&s, int sizeOfStack)
+    {
+        // code here 
+        int mid;
+        if(sizeOfStack%2==0){mid=sizeOfStack/2;}
+        else{mid=(sizeOfStack/2)+1;}
+        deleteMidUtil(s,mid,sizeOfStack);
+    }
+};
