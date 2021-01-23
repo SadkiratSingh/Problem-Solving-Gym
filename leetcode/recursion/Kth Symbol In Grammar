@@ -26,3 +26,33 @@ public:
             return r; 
     }
 };
+
+
+Another Solution (my original idea..)
+
+class Solution {
+public:
+    int findB(int N){
+        if(N==1)
+            return 1; //base
+        int x=findB(N-1);//hypothesis
+        return 2*x;//induction
+    }
+    int kthGrammar(int N, int K) {
+        if(N==1 && K==1)//base
+            return 0;
+        int B=findB(N-1);
+        int r;
+        if(K>B){
+            r=kthGrammar(N-1,K-B); //hypothesis
+            if(r==1)//induction
+                return 0;
+            else
+                return 1;
+        }
+        else{
+            r=kthGrammar(N-1,K); //hypothesis
+            return r;//induction
+        }
+    }
+};
