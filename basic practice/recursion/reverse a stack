@@ -1,0 +1,25 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+
+void insertL(stack<int>& s,int L){
+    if(s.empty()){//base
+        s.push(L);
+        return;
+    }
+    int t=s.top();//reducing the input
+    s.pop();//reducing the input
+    insertL(s,L);//hypothesis
+    s.push(t);//induction
+}
+
+void reverseStack(stack<int>& s){
+    if(s.size()==1){//base
+        return;
+    }
+    int l=s.top(); //reducing the input
+    s.pop();//reducing the input
+    reverseStack(s);//hypothesis
+    insertL(s,l);//induction
+}
