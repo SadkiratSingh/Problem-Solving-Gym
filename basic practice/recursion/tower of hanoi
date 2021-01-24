@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+
+void TOH(char beg,char middle,char end,int disks){
+    if(disks<=0)//base
+        return;
+    TOH(beg,end,middle,disks-1);//hypothesis
+    cout<<beg<<"->"<<end<<endl;//induction
+    TOH(middle,beg,end,disks-1);//induction
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	TOH('a','b','c',n);
+	return 0;
+}
