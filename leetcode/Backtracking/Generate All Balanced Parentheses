@@ -29,3 +29,39 @@ public:
         return res;
     }
 };
+
+// more conceptually correct solution
+
+class Solution {
+public:
+    void genParenUtil(vector<string>& res,string op,int n_lt,int r_lt){
+        if(n_lt==0 && r_lt==0){//base condition we store op;
+            res.push_back(op);
+            return;
+        }
+        
+        string op1=op;
+        string op2=op;
+        
+        //choice1
+        if(n_lt>0){
+            op1.append("(");
+            genParenUtil(res,op1,n_lt-1,r_lt);
+        }
+        //choice2
+        if(r_lt>n_lt){
+            op2.append(")");
+            genParenUtil(res,op2,n_lt,r_lt-1);
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string>res;
+        string op;
+        op.append("("); //only one choice here
+        int n_lt=n-1;// tracking left brackets
+        int n_rt=n;// tracking right brackets
+        genParenUtil(res,op,n_lt,n_rt);
+        return res;
+    }
+};
+
