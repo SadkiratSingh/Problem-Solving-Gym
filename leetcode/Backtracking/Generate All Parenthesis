@@ -1,0 +1,31 @@
+class Solution {
+public:
+    void genParenUtil(vector<string>& res,string op,int n_lt,int r_lt,int n){
+        if(r_lt>n_lt)//base condition we do nothing
+            return;
+        if(n_lt==n){//base condition
+            string temp=string((n-r_lt),')');
+            op.append(temp);
+            res.push_back(op);
+            return;
+        }
+        string op1=op;
+        string op2=op;
+        
+        //choice1
+        op1.append("(");
+        genParenUtil(res,op1,n_lt+1,r_lt,n);
+        //choice2
+        op2.append(")");
+        genParenUtil(res,op2,n_lt,r_lt+1,n);
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string>res;
+        string op;
+        op.append("("); //only one choice here
+        int n_lt=1;// tracking left brackets
+        int n_rt=0;// tracking right brackets
+        genParenUtil(res,op,n_lt,n_rt,n);
+        return res;
+    }
+};
