@@ -1,0 +1,30 @@
+class Solution{
+public:
+    void NBitBinaryUtil(vector<string>& res,string op,int n0,int n1,int N){
+        if(N==0){
+            res.push_back(op);
+            return;
+        }
+        //choice1
+        string op1=op;
+        op1.append("1");
+        NBitBinaryUtil(res,op1,n0,n1+1,N-1);
+        
+        //choice2
+        if(n1>n0){
+            string op2=op;
+            op2.append("0");
+            NBitBinaryUtil(res,op2,n0+1,n1,N-1);
+        }
+    }
+	vector<string> NBitBinary(int N)
+	{
+	    // Your code goes here
+	    string op;
+	    int n0=0;
+	    int n1=0;
+	    vector<string>res;
+	    NBitBinaryUtil(res,op,n0,n1,N);
+	    return res;
+	}
+};
