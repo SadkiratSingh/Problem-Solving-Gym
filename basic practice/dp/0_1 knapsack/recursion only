@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int knapsack(vector<int>& weights,vector<int>& costs,int n,int w){
+    if(n==0 || w==0){
+        return 0;//base condition;we are returning bcoz we start forming output from leaf;
+    }
+    if(weights[n-1]<=w){
+        int val=costs[n-1];
+        return max(val+knapsack(weights,costs,n-1,w-weights[n-1]),knapsack(weights,costs,n-1,w));//1
+    }
+    else{
+        return knapsack(weights,costs,n-1,w);//2
+    }
+}
+
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	vector<int>weights(n);
+	vector<int>costs(n);
+	for(int i=0;i<n;i++){
+	    int t_w;
+	    cin>>t_w;
+	    weights[i]=t_w;
+	}
+	for(int i=0;i<n;i++){
+	    int t_c;
+	    cin>>t_c;
+	    costs[i]=t_c;
+	}
+	int w;
+	cin>>w;
+	cout<<knapsack(weights,costs,n,w);
+	return 0;
+}
