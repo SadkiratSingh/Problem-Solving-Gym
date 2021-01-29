@@ -9,15 +9,17 @@ int findSubset(vector<int>& array,int n,int S){
            if(j==0){
                t[i][j]=1;
            }
-           if(i==0 && j>0){
+           else if(i==0 && j>0){
                t[i][j]=0;
            }
-           if(array[i-1]<=j){
-               t[i][j]=( t[i-1][j-array[i-1]] || t[i-1][j] );
-           }
-           else{
-               t[i][j]=t[i-1][j];
-           }
+	   else{
+		   if(array[i-1]<=j){
+		       t[i][j]=( t[i-1][j-array[i-1]] || t[i-1][j] );
+		   }
+		   else{
+		       t[i][j]=t[i-1][j];
+		   }
+	   }
        }
    }
    return t[n][S];
