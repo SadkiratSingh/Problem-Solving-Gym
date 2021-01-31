@@ -1,3 +1,4 @@
+/* idea-> append all the numbers coming before the largest element(only if it is not the last element in the array) in the array at the end of the same array.
 class Solution {
 public:
     int findMaxIndex(vector<int>& nums){
