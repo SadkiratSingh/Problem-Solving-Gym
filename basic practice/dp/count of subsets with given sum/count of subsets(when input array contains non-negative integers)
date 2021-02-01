@@ -1,0 +1,34 @@
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+int findSubset(vector<int>& array,int n,int S){
+    if(S>0 && n==0){
+        return 0;
+    }
+    if(n==0){
+        return 1;
+    }
+    if(array[n-1]<=S){
+        return findSubset(array,n-1,S-array[n-1])+findSubset(array,n-1,S); 
+    }
+    else{
+        return findSubset(array,n-1,S);
+    }
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	vector<int>array(n);
+	for(int i=0;i<n;i++){
+	    int temp;
+	    cin>>temp;
+	    array[i]=temp;
+	}
+	int S;
+	cin>>S;
+	int count=0;
+	cout<<findSubset(array,n,S);
+	return 0;
+}
