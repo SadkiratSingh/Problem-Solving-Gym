@@ -24,7 +24,7 @@ public:
         for(auto x:nums)
             s+=x;
         long long int temp=S+s;
-        if(S<=20000 && temp%2==0){ //20000 can be the maximum difference between two partitions according to the given constraints.
+        if(S<=s && temp%2==0){
             int ss=temp/2;
             return countSubsets(nums,ss);
         }
