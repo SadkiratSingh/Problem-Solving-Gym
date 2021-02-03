@@ -1,0 +1,28 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int cuttingRod(int* price,int size,int n){
+    if(size==0 || n==0){
+        return 0;
+    }
+    if(n<=size){
+        return max(price[n-1]+cuttingRod(price,size-n,n),cuttingRod(price,size,n-1));
+    }
+    else{
+        return cuttingRod(price,size,n-1);
+    }
+}
+
+int main() {
+	// your code goes here
+	
+	//input
+	int price[8]={3,5,8,9,10,17,17,20};
+	int size=8;
+	int n=sizeof(price)/sizeof(int);
+	//input
+	
+	cout<<cuttingRod(price,size,n);
+	return 0;
+}
