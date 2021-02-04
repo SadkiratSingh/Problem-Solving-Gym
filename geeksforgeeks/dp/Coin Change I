@@ -23,3 +23,30 @@ class Solution
        return t[m][n];
     }
 };
+////////////////////////////////////////////////
+//using recursion so that linear dp is used
+#include <iostream>
+using namespace std;
+
+int count( int S[], int m, int n )
+    {
+       //code here.
+       if(n==0)
+         return 1;
+       int ways=0;
+       for(int i=m;i>0;i--){
+           if(S[i-1]<=n)
+              ways+=count(S,i,n-S[i-1]);
+       }
+       return ways;
+    }
+
+int main() {
+	// your code goes here
+	int arr[3]={1,2,3};
+	int m=3;
+	int n=3;
+	cout<<count(arr,m,n);
+	return 0;
+}
+/////////////////////////////////////////////////
