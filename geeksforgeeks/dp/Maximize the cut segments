@@ -1,0 +1,33 @@
+int maximizeTheCuts(int n, int x, int y, int z)
+{
+    //Your code here
+    vector<int>maxcuts(n+1);
+    for(int i=0;i<n+1;i++){
+        if(i==0)
+           maxcuts[i]==0; 
+           
+        else{
+            int t1=INT_MIN;int t2=INT_MIN;int t3=INT_MIN;
+            
+            if(i>=x && maxcuts[i-x]!=INT_MIN)
+                t1=1+maxcuts[i-x];
+                
+            if(i>=y && maxcuts[i-y]!=INT_MIN)
+                t2=1+maxcuts[i-y];
+                
+            if(i>=z && maxcuts[i-z]!=INT_MIN)
+                t3=1+maxcuts[i-z];
+                
+            maxcuts[i]=max(max(t1,t2),t3);
+        }
+    }
+    if(maxcuts[n]==INT_MIN)
+       return 0;
+    else
+       return maxcuts[n];
+}
+
+//since, this question was a variation of unbounded knapsack
+//therefore,this question can be solved using linear dp
+//because actually only target reduces and the state of elements helping us achieving the target remains the same througout.
+//This question can also be solved using 2-dimensional dp also.
