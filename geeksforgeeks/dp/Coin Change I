@@ -1,4 +1,5 @@
 // no of ways 
+//coin array need not be sorted
 class Solution
 {
   public:
