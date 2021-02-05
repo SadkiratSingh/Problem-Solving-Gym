@@ -24,29 +24,28 @@ class Solution
     }
 };
 ////////////////////////////////////////////////
-//using recursion so that linear dp is used
+//we observe in below recurson way of solving the problem that we dont change the state of the coin array when we include a coin of a particular denomination.
+//Due to above fact this problem can be converted from 2-dimensional dp to linear dp.
 #include <iostream>
 using namespace std;
 
-int count( int S[], int m, int n )
-    {
-       //code here.
-       if(n==0)
-         return 1;
-       int ways=0;
-       for(int i=m;i>0;i--){
-           if(S[i-1]<=n)
-              ways+=count(S,i,n-S[i-1]);
-       }
-       return ways;
-    }
+int coinchangeways(int* arr,int n,int m){
+    if(m==0)
+       return 1;
+    if(n==0)
+       return 0;
+    if(arr[n-1]<=m)
+       return coinchangeways(arr,n,m-arr[n-1])+coinchangeways(arr,n-1,m);
+    else
+       return coinchangeways(arr,n-1,m);
+}
 
 int main() {
 	// your code goes here
 	int arr[3]={1,2,3};
-	int m=3;
 	int n=3;
-	cout<<count(arr,m,n);
+	int m=4;
+	cout<<coinchangeways(arr,n,m);
 	return 0;
 }
 /////////////////////////////////////////////////
