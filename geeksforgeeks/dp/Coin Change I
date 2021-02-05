@@ -59,7 +59,8 @@ class Solution
       //initializing array with 0, assuming we dont have any denomination
       //initially.
       //initialzation process of recursion is emulated.
-      long long int change[n+1]={0};
+      long long int change[n+1];
+      fill(change,change+n+1,0);
       change[0]=1;
       //we will use nested for loop as 2 variables are changing
       //in recursive way.
