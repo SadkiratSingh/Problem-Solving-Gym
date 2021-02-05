@@ -21,4 +21,28 @@ int main() {
 	cout<<mincoinchange(arr,n,m);
 	return 0;
 }
+/////////////////////////////////////////////////////////
 //recursive approach helps me building bottom up approach
+
+class Solution{
+
+	public:
+	int minCoins(int coins[], int M, int V) 
+	{ 
+	    // Your code goes here
+	    int dp[V+1];
+            fill(dp,dp+V+1,INT_MAX-1);
+	    dp[0]=0;
+	    for(int i=0;i<M;i++){
+	        for(int j=0;j<=V;j++){
+	            if(coins[i]<=j)
+	              dp[j]=min(dp[j],1+dp[j-coins[i]]);
+	        }
+	    }
+	    if(dp[V]==INT_MAX-1)
+	      return -1;
+	    else
+	      return dp[V];
+	} 
+	  
+};
