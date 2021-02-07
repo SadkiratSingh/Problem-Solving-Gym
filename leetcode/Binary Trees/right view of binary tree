@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int height(TreeNode* root){
+        if(root==NULL)
+            return 0;
+        return 1+max(height(root->left),height(root->right));
+    }
+    void findNode(TreeNode* root,int h,TreeNode** r){
+        if(root==NULL)
+            return;
+        if(h==1){
+            *r=root;
+            return;
+        }
+        findNode(root->right,h-1,r);
+        findNode(root->left,h-1,r);
+    }
+    void rightSideViewUtil(TreeNode* root,vector<int>& res,int h){
+        if(root==NULL)//base
+            return;
+        res.push_back(root->val);//induc
+        rightSideViewUtil(root->right,res,h-1);//hypo
+        //induc
+        if(height(root->left)>height(root->right)){
+            int h=height(root->right);
+            TreeNode* r=NULL;
+            findNode(root->left,h,&r);
+            rightSideViewUtil(r,res);
+        }
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int>res;
+        int h=height(root);
+        rightSideViewUtil(root,res,h);
+        return res;
+    }
+};
