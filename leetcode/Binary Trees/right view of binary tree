@@ -1,3 +1,5 @@
+// A very naive implementation but accepted by leetcode
+typedef map<int,vector<int>> mpvec;
 class Solution {
 public:
     int height(TreeNode* root){
@@ -5,33 +7,20 @@ public:
             return 0;
         return 1+max(height(root->left),height(root->right));
     }
-    void findNode(TreeNode* root,int h,TreeNode** r){
-        if(root==NULL)
+    void rightSideViewUtil(TreeNode* root,int h,int level,mpvec& om){
+        if(level==h || root==NULL)
             return;
-        if(h==1){
-            *r=root;
-            return;
-        }
-        findNode(root->right,h-1,r);
-        findNode(root->left,h-1,r);
-    }
-    void rightSideViewUtil(TreeNode* root,vector<int>& res,int h){
-        if(root==NULL)//base
-            return;
-        res.push_back(root->val);//induc
-        rightSideViewUtil(root->right,res,h-1);//hypo
-        //induc
-        if(height(root->left)>height(root->right)){
-            int h=height(root->right);
-            TreeNode* r=NULL;
-            findNode(root->left,h,&r);
-            rightSideViewUtil(r,res);
-        }
+        om[level].push_back(root->val);
+        rightSideViewUtil(root->left,h,level+1,om);
+        rightSideViewUtil(root->right,h,level+1,om);
     }
     vector<int> rightSideView(TreeNode* root) {
-        vector<int>res;
         int h=height(root);
-        rightSideViewUtil(root,res,h);
+        mpvec om;
+        vector<int>res;
+        rightSideViewUtil(root,h,0,om);
+        for(auto x:om)
+            res.push_back(*((om[x.first]).end()-1));
         return res;
     }
 };
