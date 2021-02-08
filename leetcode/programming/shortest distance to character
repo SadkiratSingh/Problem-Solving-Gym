@@ -1,0 +1,60 @@
+class Solution {
+public:
+    void fillans(vector<int>& answer,int first,int last,int n){
+        if(first==-1){
+            int i=first+1;
+            while(i<last){
+                answer[i]=last-i;
+                i++;
+            }
+        }
+        else if(last==n){
+            int l=n-1;
+            while(l>first){
+                answer[l]=l-first;
+                l--;
+            }
+        }
+        else{
+            int t=first+last;
+            int t1;int t2;
+            if(t%2==0){
+                t1=t2=t/2;
+                answer[t1]=t1-first;
+                t1--;
+                t2++;
+            }
+            else{
+                t1=t/2;
+                t2=(t/2)+1;
+            }
+            while(t1>first){
+                answer[t1]=t1-first;
+                t1--;
+            }
+            while(t2<last){
+                answer[t2]=last-t2;
+                t2++;
+            }
+        }
+    }
+    vector<int> shortestToChar(string s, char c) {
+        vector<int>answer(s.size());
+        int n=s.size();
+        int first=-1;
+        int last=-1;
+        for(int i=0;i<n;i++){
+            if(s[i]==c){
+                answer[i]=0;
+                last=i;
+                fillans(answer,first,last,n);
+                first=last;
+            }
+            if(first==last && i==n-1){
+                last=n;
+                fillans(answer,first,last,n);
+            }
+        }
+        return answer;
+    }
+};
