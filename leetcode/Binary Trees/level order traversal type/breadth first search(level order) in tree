@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int height(TreeNode* root){
+        if(root==NULL)
+            return 0;
+        return 1+max(height(root->left),height(root->right));
+    }
+    void rightSideViewUtil(TreeNode* root,int h,vector<int>& res){
+        if(root==NULL)//base
+            return;
+        if(h==0)//base
+            res.push_back(root->val);
+        rightSideViewUtil(root->right,h-1,res);//hypo
+        rightSideViewUtil(root->left,h-1,res);//hypo
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        int h=height(root);
+        vector<int>res;
+        while(h>0){
+            rightSideViewUtil(root,h-1,res);
+            h--;
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
