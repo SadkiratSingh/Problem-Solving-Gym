@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int sumOfNodes(TreeNode* root){
+        if(root==NULL)
+            return 0;
+        return (root->val)+sumOfNodes(root->left)+sumOfNodes(root->right);
+    }
+    TreeNode* convertBSTUtiL(TreeNode* root){
+         if(root==NULL)
+            return NULL;
+        TreeNode* fRight=convertBSTUtil(root->right);//fRight contains sum of all 
+        if(fRight!=NULL)                             //nodes greater than root
+            (root->val)+=fRight->val;
+        TreeNode* fLeft=convertBSTUtil(root->left);//fLeft contains sum of all nodes  
+        if(fLeft!=NULL)                            //greater than left child of root
+            (fLeft->val)+=root->val;
+        if(fLeft)
+            return fLeft;
+        else
+            return root;
+    }
+    TreeNode* convertBST(TreeNode* root) {
+       
+    }
+};
