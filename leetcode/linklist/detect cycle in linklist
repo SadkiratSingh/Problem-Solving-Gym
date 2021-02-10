@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode* t1=head;
+        ListNode* t2=head;
+        while(t2!=NULL && t2->next!=NULL){
+            t2=t2->next->next;
+            t1=t1->next;
+            if(t2==t1)
+                return true;
+        }
+        return false;
+    }
+};
+// either use a map or floyd's cycle finding algorithm
