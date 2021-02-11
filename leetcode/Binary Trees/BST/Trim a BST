@@ -1,0 +1,27 @@
+//Given the root of a binary search tree and the lowest and highest boundaries as low and high, trim the tree so that all its elements lies in [low, high]. 
+//Trimming the tree should not change the relative structure of the elements that will remain in the tree (i.e., any node's descendant should remain a descendant). 
+//It can be proven that there is a unique answer.
+
+//Due to low-high range such a condition will never occur in BST when a node's data is out of range and both its children's data is within range.
+
+
+class Solution {
+public:
+    TreeNode* trimBST(TreeNode* root, int low, int high) {
+        if(root==NULL) //base
+            return NULL;
+        
+        root->left=trimBST(root->left,low,high);//hypothesis
+        root->right=trimBST(root->right,low,high);//hypothesis
+        
+        if(!(root->val>=low && root->val<=high)){//induction
+            if(!root->left && !root->right)
+                return NULL;
+            else if(!root->left)
+                return root->right;
+            else if(!root->right)
+                return root->left;
+        }
+        return root;
+    }
+};
