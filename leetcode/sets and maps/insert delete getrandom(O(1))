@@ -1,0 +1,42 @@
+class RandomizedSet {
+public:
+    vector<int>data;
+    unordered_map<int,int>um;
+    /** Initialize your data structure here. */
+    RandomizedSet() {
+    }
+    
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    bool insert(int val) {
+        if(um.find(val)==um.end()){
+            data.push_back(val);
+            um[val]=data.size()-1;
+            return true;
+        }
+        return false;
+    }
+    
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    bool remove(int val) {
+        if(um.find(val)==um.end()){
+            return false;
+        }
+        else{
+            int del_ind=um[val];
+            data[del_ind]=data[data.size()-1];
+            data.pop_back();
+            um[data[del_ind]]=del_ind;
+            um.erase(val);
+            return true;
+        }
+    }
+    
+    /** Get a random element from the set. */
+    int getRandom() {
+        if(data.size()>0){
+            int rand_ind=rand()%data.size();
+            return data[rand_ind];
+        }
+        return -1;
+    }
+};
