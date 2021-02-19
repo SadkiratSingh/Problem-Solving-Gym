@@ -1,0 +1,48 @@
+// a graph with single node is always bipartite
+class Solution {
+public:
+    bool isBipartiteUtil(vector<vector<int>>& graph,vector<int>& color,int index){
+        //suppose assigning red color to first vertex of graph component;
+        color[index]=1; 
+        //for BFS processing of graph
+        queue<int>Q;
+        Q.push(index);
+        while(!Q.empty()){
+            //start processing the current node
+            int curr=Q.front();
+            
+            for(int i=0;i<graph[curr].size();i++){
+                //neigbour node
+                int nbr=graph[curr][i];
+                
+                //check if current node clr is same as nbr node color
+                if(color[curr]==color[nbr])
+                    return false;
+                
+                else{
+                    //assign a diff color to nbr node if its not already colored and push nbr node into Q
+                    if(color[nbr]==-1){
+                        color[nbr]=1-color[curr];
+                        Q.push(nbr);
+                    }
+                }
+            }
+            Q.pop();
+        }
+        return true;
+    }
+    
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vector<int>color(n);
+        for(int i=0;i<n;i++) // to show that graph is yet not colored;
+            color[i]=-1;
+        for(int i=0;i<n;i++){
+            //looping though color array to visit all nodes
+            if(color[i]==-1)
+                if(isBipartiteUtil(graph,color,i)==false)
+                    return false;
+        }
+        return true;
+    }
+};
