@@ -1,0 +1,26 @@
+//Brute Force
+//Time Complexity-->O(n^2)
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& A) {
+        int diff=INT_MIN;
+        int n=A.size();
+        int count=0;
+        for(int i=0;i<n;i++){
+           for(int j=i+1;j<n;j++){
+               int tdiff=A[j]-A[i];
+               if(j-i==1){
+                   if(tdiff!=diff)
+                       diff=tdiff;// calculating the common difference of artihmetic slice;
+               }
+               else if(j-i>=2){ // size of arithmetic slice must be atleast 3;
+                   if(tdiff==(j-i)*diff) //artithmetic slice check;
+                       count+=1;
+                   else
+                       break;
+               }
+           } 
+        }
+        return count;
+    }
+};
