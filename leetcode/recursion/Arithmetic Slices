@@ -4,6 +4,10 @@ the ranges between (i,j+1)  will constitutes an arithmetic slice. Further, if th
 adding new elements to this range won't do us any good. Thus, no more arithmetic slices can be obtained by adding new elements to it.
 
 By making use of this observation, we can develop a recursive solution for the given problem.
+Assume that a sum variable is used to store the total number of arithmetic slices in the given array A. 
+We make use of a recursive function slices(A,i) which returns the number of Arithmetic Slices in the range (k,i), but which are not a part of any range (k,j) such that j<i.
+It also updates sum with the number of arithmetic slices(total) in the current range. 
+Thus, k refers to the minimum index such that the range (k,j) constitutes a valid arithmetic slice.
 
 class Solution {
 public:
