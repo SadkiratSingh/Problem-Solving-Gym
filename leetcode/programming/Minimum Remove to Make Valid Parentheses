@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        int n=s.size();
+       //moving left to right;
+        int count=0;
+        for(int i=0;i<n;i++){
+            //taking into account "("
+            if(s[i]=='(')
+                count+=1;
+            else if(s[i]==')'){
+                if(count==0) //incase all pairs of balanced parentheses are done
+                    s[i]='#';
+                else
+                    count-=1;
+            }
+        }
+        //moving right to left;
+        count=0;
+        for(int i=n-1;i>=0;i--){
+            //taking into account ")"
+            if(s[i]==')')
+                count+=1;
+            else if(s[i]=='('){
+                if(count==0) //incase all pairs of balanced parentheses are done
+                    s[i]='#';
+                else
+                    count-=1;
+            }
+        }
+        string ans;
+        for(int i=0;i<n;i++){
+            if(s[i]!='#')
+                ans.push_back(s[i]);
+        }
+        return ans;
+    }
+};
