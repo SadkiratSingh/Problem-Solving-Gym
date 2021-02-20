@@ -1,0 +1,34 @@
+We know, that if a range of elements between the indices (i,j) constitute an Arithmetic Slice, 
+and another element A[j+1] is included such that A[j+1] and A[j] have the same difference as that of the previous common difference, 
+the ranges between (i,j+1)  will constitutes an arithmetic slice. Further, if the original range (i,j) doesn't form an arithmetic slice, 
+adding new elements to this range won't do us any good. Thus, no more arithmetic slices can be obtained by adding new elements to it.
+
+By making use of this observation, we can develop a recursive solution for the given problem.
+
+class Solution {
+public:
+    int slices(vector<int>& A,int i,int& sum){
+        //base condition because size must be atleast 3;
+        if(i<2)
+            return 0;
+        
+        //count new arithmetic slices
+        int NAS=0;
+        
+        int S=slices(A,i-1,sum);//newly generated slices returned by previous arithmetic slice;
+        
+        //apply the check of common difference
+        if(A[i]-A[i-1]==A[i-1]-A[i-2]){
+            
+            NAS=1+S; //new arithmetic slices;
+            sum+=NAS; //update total artihmetic slices
+        }
+        return NAS; //returning new generated artithmetic slices
+    }
+    int numberOfArithmeticSlices(vector<int>& A) {
+        int n=A.size();
+        int sum=0;
+        slices(A,n-1,sum);
+        return sum;
+    }
+};
