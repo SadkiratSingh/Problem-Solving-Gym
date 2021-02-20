@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<pair<char,int>>stk; // stack must inlude pair of parenthesis and its index so that we can remove parentheses later
+        for(int i=0;i<s.size();i++){
+            if(s[i]==')' || s[i]=='('){ //play with stack only when we encounter parentheses
+                if(stk.empty())
+                    stk.push(make_pair(s[i],i));
+                else{
+                    int c=(stk.top()).first;
+                    if(s[i]==')' && c=='(') //only pop when balanced pair matches
+                        stk.pop();
+                    else
+                        stk.push(make_pair(s[i],i));
+                }
+            }
+        }
+        while(!stk.empty()){
+            s.erase((stk.top()).second,1);
+            stk.pop();
+        }
+        return s;
+    }
+};
