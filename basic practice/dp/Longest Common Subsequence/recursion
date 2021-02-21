@@ -1,0 +1,29 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int LCS(string& str1,string& str2,int a,int b){
+    if(a==0 || b==0){ // base condition
+        return 0;
+    }
+    else{
+        // choice diagram and reducing input
+        if(str1[a-1]!=str2[b-1]){
+            return max( LCS(str1,str2,a-1,b),LCS(str1,str2,a,b-1) );
+        }
+        else{
+        // 1 is added because characters match and every recursive call is basically a subproblem;
+            return 1+LCS(str1,str2,a-1,b-1);
+        }
+    }
+}
+
+int main() {
+	// your code goes here
+	int a=6;
+	int b=6;
+	string str1="ABCDGH";
+	string str2="AEDFHR";
+	cout<<LCS(str1,str2,a,b);
+	return 0;
+}
