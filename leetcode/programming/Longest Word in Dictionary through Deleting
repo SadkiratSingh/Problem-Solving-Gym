@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool checksubsequence(string s,string x){
+        int n=s.size();
+        int nx=x.size();
+        int n_e=n-1;
+        int nx_e=nx-1;
+        while(n_e>=0 && nx_e>=0){
+            if(s[n_e]==x[nx_e])
+                nx_e--;
+            n_e--;
+        }
+        return nx_e<0;
+    }
+    string findLongestWord(string s, vector<string>& d) {
+        string max_str;
+        for(auto x:d){
+            if(checksubsequence(s,x)){
+                if( (x.size()>max_str.size()) || ( (x.size()==max_str.size()) && x<max_str) )
+                    max_str=x;
+            }
+        }
+        return max_str;
+    }
+};
