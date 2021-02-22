@@ -1,0 +1,10 @@
+ //closer to O(n^2) because of insert function
+ 
+ void rotate(vector<int>& nums, int k) {
+        while(k>0){
+            int n=nums.size();
+            nums.insert(nums.begin(),nums[n-1]);
+            nums.pop_back();
+            k--;
+        }
+    }
