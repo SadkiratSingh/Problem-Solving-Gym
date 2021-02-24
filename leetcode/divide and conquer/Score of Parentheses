@@ -1,0 +1,33 @@
+Idea is to split string S into A and B such that S=A+B and A and B are primitive balanced components.Then,
+score(S)=score(A)+score(B) where score is a function to calculate the score of valid parentheses given.
+
+Time Complexity-->O(n^2)
+
+class Solution {
+public:
+    int score(string S,int i,int j){
+        int s=0;// score of primitive balanced component;
+        int b=0; // to create primitive balanced components;
+        for(int k=i;k<=j;k++){
+            if(S[k]=='(')
+                b+=1;
+            else
+                b-=1;
+            // we have now achieved a primitive component
+            if(b==0){
+                //if it is the smallest primitive component
+                if(k-i==1)
+                    s+=1;
+                else
+                    s+=2*score(S,i+1,k-1);
+                i=k+1;
+            }    
+        }
+        return s;
+    }
+    int scoreOfParentheses(string S) {
+        int i=0;
+        int j=S.size()-1;
+        return score(S,i,j);
+    }
+};
