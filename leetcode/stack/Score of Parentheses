@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int scoreOfParentheses(string S) {
+        //maintain 2 stacks. One stack to hold parentheses and other stack to maintain the count of balanced components between two balanced parentheses.
+        stack<pair<char,int>>stk;
+        stack<int>score_stk;
+        
+        for(int i=0;i<S.size();i++){
+            if(S[i]=='('){
+                if(stk.empty()){
+                    stk.push(make_pair('(',0));
+                    score_stk.push(0);
+                }
+                else{
+                    if( (stk.top()).first=='(' ){
+                        (stk.top()).second+=1; //keep counting the balanced components inside the balanced parentheses
+                        score_stk.push(0);
+                        stk.push(make_pair('(',0));
+                    }
+                }
+            }
+            else{
+                if( (stk.top()).second>0 ){
+                    int temp1=0;
+                    int temp2=(stk.top()).second;
+                    while(temp2>0){
+                        temp1+=score_stk.top();
+                        score_stk.pop();
+                        temp2--;
+                    }
+                    (score_stk.top())+=2*temp1;
+                }
+                else
+                    (score_stk.top())+=1;
+                stk.pop();
+            }
+        }
+        int score=0;
+        while(!score_stk.empty()){
+            score+=score_stk.top();
+            score_stk.pop();
+        }
+        return score;
+    }
+};
+//There will be better approach
+//Dont do this thing-->pair<char,int>p=stk.top() OR pair<char,int>(stk.top()),pair does not get initialize this way because stk.top() is just a reference not an actual pair.
