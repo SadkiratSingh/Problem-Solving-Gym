@@ -1,0 +1,28 @@
+//optimize the space
+
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        int pop=0;
+        int push=0;
+        int n=pushed.size();
+        stack<int>stk;
+        for(;push<n;push++){
+            if(pushed[push]!=popped[pop]){
+                while(!stk.empty() && popped[pop]==stk.top()){
+                    stk.pop();
+                    pop++;
+                }
+                stk.push(pushed[push]);
+            }
+            else
+                pop++;
+        }
+        while(pop<n){
+            if(popped[pop]==stk.top())
+                stk.pop();
+            pop++;
+        }
+        return (stk.empty());
+    }
+};
