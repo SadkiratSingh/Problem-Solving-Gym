@@ -1,0 +1,28 @@
+//using recursion + stack 
+class Solution {
+public:
+    vector<int>vec;
+    int score(int low,int high){
+        if(low+1==high)
+            return 1;
+        int inter=vec[low];
+        if(inter==high)
+            return 2*score(low+1,high-1);
+        return score(low,inter)+score(inter+1,high);
+    }
+    int scoreOfParentheses(string S) {
+        int n=S.size();
+        stack<int>stk;
+        vec.resize(n);
+        for(int i=0;i<n;i++){
+            if(S[i]==')'){
+                int t=stk.top();
+                vec[t]=i;
+                stk.pop();
+            }
+            else
+                stk.push(i);
+        }
+        return score(0,n-1);
+    }
+};
