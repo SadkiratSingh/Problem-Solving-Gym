@@ -1,0 +1,24 @@
+For each value, push it to the stack.
+
+Then, greedily pop values from the stack if they are the next values to pop.
+
+At the end, we check if we have popped all the values successfully.
+
+
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        int pop=0;
+        int push=0;
+        int n=pushed.size();
+        stack<int>stk;
+        for(;push<n;push++){
+            stk.push(pushed[push]);
+            while(!stk.empty() && popped[pop]==stk.top()){
+                stk.pop();
+                pop++;
+            }
+        }
+        return (stk.empty());
+    }
+};
