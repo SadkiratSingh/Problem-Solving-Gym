@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        unordered_map<int,int>um;
+        vector<int>res(2);
+        int n=nums.size();
+        for(auto x:nums)
+            um[x]+=1;
+        for(int i=1;i<=n;i++){
+            if(um.find(i)==um.end())
+                res[1]=i;
+            else if(um[i]>1)
+                res[0]=i;
+        }
+        return res;
+    }
+};
