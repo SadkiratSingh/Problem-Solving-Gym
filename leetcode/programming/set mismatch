@@ -1,0 +1,34 @@
+// using the concept of 2 equations and 2 variables
+// first equation (x-y) where x->repeated and y->missing can be found by (sum of numbers in array)-(sum of first n numbers) where n is array size
+// intermediate eq (x^2-y^2) by (sum of squares of numbers in array)-(sum of squares of first n numbers)
+// second equation (x+y) by (first equation)/(intermediate eq)
+// solve (x+y) and (x-y) to find x and y.
+
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>res(2);
+        long int sum=0;
+        long int sum_sq=0;
+        long int sum_num=0;
+        long int sum_num_sq=0;
+        for(int i=1;i<=n;i++){
+            sum+=i;
+            sum_sq+=(i*i);
+        }
+        for(auto x:nums){
+            sum_num+=x;
+            sum_num_sq+=(x*x);
+        }
+        
+        int diff1=sum_num-sum;
+        int diff2=sum_num_sq-sum_sq;
+        int sum1=diff2/diff1;
+        
+        int repeat=(sum1+diff1)/2;
+        int missing=repeat-diff1;
+        res[0]=repeat;
+        res[1]=missing;
+        return res;
+    }
