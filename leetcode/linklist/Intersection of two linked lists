@@ -1,0 +1,48 @@
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* tempA=headA;
+        ListNode* tempB=headB;
+        
+        //count of nodes will help us to detect their common starting point
+        int countA=0;
+        int countB=0;
+        while(tempA!=NULL){
+            countA+=1;
+            tempA=tempA->next;
+        }
+        while(tempB!=NULL){
+            countB+=1;
+            tempB=tempB->next;
+        }
+        
+        //detecting the starting point
+        tempA=headA;
+        tempB=headB;
+        
+        if(countB>countA){
+            int rem=countB-countA;
+            while(rem>0){
+                rem--;
+                tempB=tempB->next;
+            }
+        }
+        else if(countA>countB){
+            int rem=countA-countB;
+            while(rem>0){
+                rem--;
+                tempA=tempA->next;
+            }
+        }
+        
+        //finding the starting point
+        while((tempA!=NULL) && (tempA!=tempB)){
+            tempA=tempA->next;
+            tempB=tempB->next;
+        }
+        if(tempA==NULL)
+            return NULL;
+        else
+            return tempA;
+    }
+};
