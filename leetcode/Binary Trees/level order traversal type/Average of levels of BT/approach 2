@@ -1,0 +1,27 @@
+ Time Complexity--> O(n) coz all nodes are traversed..
+ Space Complexity--> O(m) coz m will be maximum number of nodes at a level of input tree
+ ** This is BFS approach
+ 
+ vector<double> averageOfLevels(TreeNode* root) {
+        deque<TreeNode*>Q;
+        vector<double>res;
+        Q.push_back(root);
+        while(!Q.empty()){
+            //finding avg at every level
+            double level_sum=0;
+            double level_size=Q.size();
+            for(int i=0;i<level_size;i++){
+                TreeNode* current=Q.front();
+                level_sum+=(current->val);
+                Q.pop_front();
+                if(current->left)
+                    Q.push_back(current->left);
+                if(current->right)
+                    Q.push_back(current->right);
+            }
+            double level_avg=(level_sum/level_size);
+            res.push_back(level_avg);
+        }
+        return res;
+    }
+};
