@@ -1,0 +1,81 @@
+// without considering rehashing and load factors
+// to avoid collision chaining has been used which is implemented by link list
+// hash fxn--> h(key)=key%size;
+
+class MyHashMap {
+public:
+    /** Initialize your data structure here. */
+    struct ListNode{
+        int key;
+        int val;
+        ListNode* next;
+        ListNode(int key,int val){
+            this->key=key;
+            this->val=val;
+            this->next=NULL;
+        }
+    };
+    vector<ListNode*>V;
+    int size;
+    MyHashMap() {
+        size=100;
+        V.resize(size,NULL);
+    }
+    
+    /** value will always be non-negative. */
+    void put(int key, int value) {
+        int index=key%size;
+        ListNode* start=V[index];
+        ListNode* last=start;
+        while(start!=NULL){
+            if(start->key==key){
+                start->val=value;
+                return;
+            }
+            start=start->next;
+        }
+        //inserting at start
+        ListNode* temp=new ListNode(key,value);
+        temp->next=V[index];
+        V[index]=temp;
+    }
+    
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    int get(int key) {
+        int index=key%size;
+        ListNode* start=V[index];
+        while(start!=NULL){
+            if(start->key==key)
+                return start->val;
+            start=start->next;
+        }
+        return -1;
+    }
+    
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    void remove(int key) {
+        int index=key%size;
+        ListNode* start=V[index];
+        ListNode* par=NULL;
+        while(start!=NULL){
+            if(start->key==key){
+                if(par==NULL){
+                    V[index]=start->next;
+                    return;
+                }
+                par->next=start->next;
+                return;
+            }
+            par=start;
+            start=start->next;
+        }
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
