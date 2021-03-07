@@ -1,0 +1,34 @@
+// A valid encoding of an array of words is any reference string s and array of indices indices such that:
+
+   1. words.length == indices.length
+   2. The reference string s ends with the '#' character.
+   3. For each index indices[i], the substring of s starting from indices[i] and up to (but not including) the next '#' character is equal to words[i].
+// Given an array of words, return the length of the shortest reference string s possible of any valid encoding of words.
+
+
+** unordered_set has been used so that erase and insert functions take a constant time
+
+class Solution {
+public:
+    int minimumLengthEncoding(vector<string>& words) {
+        unordered_set<string>us;
+        for(auto x:words)
+            us.insert(x);
+            
+        // for each word in our array we check whether any of its suffix exists in our array. If it exists then simply remove it bcoz it will cause redundancy while forming 
+        //shortest reference string.
+        
+        for(auto word:words){
+            int s=word.size();
+            for(int i=1;i<word.size();i++){
+                string sub=word.substr(i,s-1); // finding suffix
+                us.erase(sub);
+            }
+        }
+        int len=0;
+        for(string x:us){
+            len+=(x.size()+1); //+1 to include '#' character.
+        }
+        return len;
+    }
+};
