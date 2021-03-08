@@ -1,0 +1,23 @@
+//Given a string s consisting only of letters 'a' and 'b'. In a single step you can remove one palindromic subsequence from s.
+//Return the minimum number of steps to make the given string empty.
+
+class Solution {
+public:
+    bool checkPalin(string& s,int l,int r){
+        if(l>=r)
+            return true;
+        else if(s[l]!=s[r])
+            return false;
+        else
+            return checkPalin(s,l+1,r-1);
+    }
+    int removePalindromeSub(string s) {
+        int n=s.size();
+        if(n==0)
+            return 0;
+        else if(checkPalin(s,0,n-1))
+            return 1;
+        else
+            return 2;
+    }
+};
