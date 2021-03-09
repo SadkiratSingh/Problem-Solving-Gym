@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool canFormArray(vector<int>& arr, vector<vector<int>>& pieces) {
+        int pie_sz=pieces.size();
+        int arr_sz=arr.size();
+        unordered_map<int,int>S;
+        
+        // recording the positions of the numbers in the array using a hashmap
+        for(int i=0;i<arr_sz;i++)
+            S.insert(make_pair(arr[i],i));
+        
+        // start iterating over the pieces
+        for(int i=0;i<pie_sz;i++){
+            // if piece contains single element just check for its existence in the map
+            if(pieces[i].size()==1){
+                if(S.find(pieces[i][0])==S.end())
+                    return false;
+            }
+            // if piece contains multiple elements find the index of first element in the piece from the map and check whether elements 
+            // in the piece occur in same order in array. We can return false in first place if first element in piece is not in array.
+            else{
+                if(S.find(pieces[i][0])==S.end())
+                    return false;
+                else{
+                    int index=S[pieces[i][0]];
+                    int j=0;
+                    int x=pieces[i].size();
+                    while(j<x && index<arr_sz){
+                        if(pieces[i][j]!=arr[index])
+                            return false;
+                        j+=1;
+                        index+=1;
+                    }
+                    if(index==arr_sz && j<x )
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+};
