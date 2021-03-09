@@ -1,0 +1,46 @@
+** BFS approach
+
+Time Complexity-->O(A*W) or O(n) where A is no. of levels , W is no. of nodes at every level and n is number of nodes in tree
+space complexity--> O(m) where m is no of nodes at any level
+
+class Solution {
+public:
+    TreeNode* addOneRow(TreeNode* root, int v, int d) {
+        if(d==1){
+            TreeNode* temp=root;
+            root=new TreeNode(v);
+            root->left=temp;
+            return root;
+        }
+        deque<TreeNode*>Q;
+        Q.push_back(root);
+        int level=1;
+        //go down the tree level by level
+        while(level<d-1){
+            int level_size=Q.size();
+            for(int i=0;i<level_size;i++){
+                TreeNode* curr=Q.front();
+                if(curr->left)
+                    Q.push_back(curr->left);
+                if(curr->right)
+                    Q.push_back(curr->right);
+                Q.pop_front();
+            }
+            level+=1;
+        }
+        //adding nodes at the (d-1)th level so added row is at the dth level
+        while(!Q.empty()){
+            TreeNode* curr=Q.front();
+            //for left child
+            TreeNode* temp=curr->left;
+            curr->left=new TreeNode(v);
+            curr->left->left=temp;
+            //for right child
+            temp=curr->right;
+            curr->right=new TreeNode(v);
+            curr->right->right=temp;
+            Q.pop_front();
+        }
+        return root;
+    }
+};
