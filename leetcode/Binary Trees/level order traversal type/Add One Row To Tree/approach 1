@@ -1,0 +1,36 @@
+//Given the root of a binary tree, then value v and depth d, you need to add a row of nodes with value v at the given depth d. The root node is at depth 1.
+** DFS approach
+
+class Solution {
+public:
+    TreeNode* addOneRowUtil(TreeNode* root,int v,int d,int level){
+        if(root==NULL)
+            return NULL;
+        if(d==1){
+            TreeNode* temp=root;
+            root=new TreeNode(v);
+            root->left=temp;
+            return root;
+        }
+        else if(level==d-1){
+            //for left child
+            TreeNode* temp=root->left;
+            root->left=new TreeNode(v);
+            root->left->left=temp;
+            //for right child
+            temp=root->right;
+            root->right=new TreeNode(v);
+            root->right->right=temp;
+            return root;
+        }
+        else{
+            root->left=addOneRowUtil(root->left,v,d,level+1);
+            root->right=addOneRowUtil(root->right,v,d,level+1);
+            return root;
+        }
+    }
+    TreeNode* addOneRow(TreeNode* root, int v, int d) {
+        int level=1;
+        return addOneRowUtil(root,v,d,level);
+    }
+};
