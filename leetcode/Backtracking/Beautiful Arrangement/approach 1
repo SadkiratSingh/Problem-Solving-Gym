@@ -1,0 +1,35 @@
+//Suppose you have n integers labeled 1 through n. A permutation of those n integers perm (1-indexed) is considered a 
+//beautiful arrangement if for every i (1 <= i <= n), either of the following is true:
+
+//   1.perm[i] is divisible by i.
+//   2.i is divisible by perm[i].
+
+//Given an integer n, return the number of the beautiful arrangements that you can construct.
+
+** high space complexity here but accepted
+
+class Solution {
+public:
+    void countArrangementUtil(int n,int& count,vector<int> OP){
+        if(n==0) //base condition
+            count+=1;
+        else{
+            //looping over my permutation array to insert n at a particular index according to given conditions.
+            for(int i=1;i<=OP.size();i++){ 
+                if( (OP[i-1]==0) && (i%n==0 || n%i==0) ){
+                    OP[i-1]=n;
+                    countArrangementUtil(n-1,count,OP);
+                }
+                else
+                    continue;
+                OP[i-1]=0; //re-initialize everything
+            }
+        }
+    }
+    int countArrangement(int n) {
+        int count=0; //counting number of arrangements
+        vector<int>OP(n); // the output permutation array which is unfortunately increasing the space complexity
+        countArrangementUtil(n,count,OP);
+        return count;
+    }
+};
