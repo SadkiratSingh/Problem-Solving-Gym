@@ -1,0 +1,31 @@
+// this approach uses swapping technique.
+
+class Solution {
+public:
+    void swap(vector<int>& V,int pos,int i){
+        int temp=V[pos];
+        V[pos]=V[i];
+        V[i]=temp;
+    }
+    void countArrangementUtil(vector<int>&V ,int n,int pos,int& count){
+        if(pos==n){
+            count+=1;
+            return;
+        }
+        for(int i=pos;i<n;i++){
+            swap(V,pos,i);
+            if( V[pos]%(pos+1)==0 || (pos+1)%V[pos]==0 )
+                countArrangementUtil(V,n,pos+1,count);
+            swap(V,pos,i);
+        }
+    }
+    int countArrangement(int n) {
+        vector<int>V(n);
+        for(int i=1;i<=n;i++)
+            V[i-1]=i;
+        int count=0;
+        int pos=0;
+        countArrangementUtil(V,n,pos,count);
+        return count;
+    }
+};
