@@ -6,12 +6,11 @@
 
 //Given an integer n, return the number of the beautiful arrangements that you can construct.
 
-** high space complexity here but accepted
 
 class Solution {
 public:
-    void countArrangementUtil(int n,int& count,vector<int> OP){
-        if(n==0) //base condition
+    void countArrangementUtil(int n,int& count,vector<int>& OP){
+       if(n==0) //base condition
             count+=1;
         else{
             //looping over my permutation array to insert n at a particular index according to given conditions.
@@ -28,8 +27,9 @@ public:
     }
     int countArrangement(int n) {
         int count=0; //counting number of arrangements
-        vector<int>OP(n); // the output permutation array which is unfortunately increasing the space complexity
+        vector<int>OP(n); // the output permutation array
         countArrangementUtil(n,count,OP);
         return count;
+       
     }
 };
