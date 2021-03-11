@@ -1,0 +1,33 @@
+** using heap
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        priority_queue<int,vector<int>,greater<int>>H;
+        ListNode* head1=l1;
+        ListNode* head2=l2;
+        while(head1!=NULL){
+            H.push(head1->val);
+            head1=head1->next;
+        }
+        while(head2!=NULL){
+            H.push(head2->val);
+            head2=head2->next;
+        }
+        ListNode* merge=NULL;
+        ListNode* tmerge=merge;
+        while(!H.empty()){
+            ListNode* temp=new ListNode(H.top());
+            H.pop();
+            if(merge==NULL){
+                merge=temp;
+                tmerge=temp;
+            }
+            else{
+                tmerge->next=temp;
+                tmerge=tmerge->next;
+            }
+        }
+        return merge;
+    }
+};
