@@ -1,0 +1,31 @@
+// Given a string s, find the length of the longest substring without repeating characters.
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        string o; // will contain the longest substring
+        int maxl=INT_MIN;
+        int n=s.size();
+        int i=0;
+        // if length of string is 0 return 0
+        if(n==0)
+            return 0;
+        while(i<n){
+            if(o.empty())
+               o+=s[i];
+            else{
+            //check if current char in s can be found in o. If yes, then find its index in o and discard the whole substring in o that occurs till that index from start
+                if(o.find(s[i])!=string::npos){
+                    int x=o.find(s[i]);
+                    o.erase(0,x+1);
+                }
+                o+=s[i]; // append the current char
+            }
+            // keep track of maximum length
+            if((int)(o.size())>maxl)
+                maxl=o.size();
+            i+=1;
+        }
+        return maxl;
+    }
+};
