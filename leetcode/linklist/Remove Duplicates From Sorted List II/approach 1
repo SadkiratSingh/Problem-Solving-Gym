@@ -1,0 +1,75 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==NULL)
+            return head;
+        //process1
+        unordered_map<ListNode*,ListNode*>um;
+        ListNode* temp=head;
+        ListNode* prev=NULL;
+        um[temp]=prev;
+        prev=temp;
+        temp=temp->next;
+        while(temp!=NULL){
+            um[temp]=prev;
+            prev=temp;
+            temp=temp->next;
+        }
+        
+        //process2
+        temp=head;
+        prev=NULL;
+        prev=temp;
+        temp=temp->next;
+        int flag=0;
+        ListNode* duplicate=NULL;
+        while(temp!=NULL){
+            if(temp->val==prev->val){
+                if(flag==0){
+                    flag=1;
+                    duplicate=prev;
+                }
+                prev->next=temp->next;
+                um.erase(temp);
+                temp=temp->next;
+                if(temp!=NULL)
+                    um[temp]=prev;
+            }
+            else if(flag==1){
+                ListNode* par=um[prev];
+                if(par==NULL){
+                    head=temp;
+                    um[head]=NULL;
+                }
+                else{
+                    par->next=prev->next;
+                    um.erase(prev);
+                    prev=par;
+                    um[temp]=prev;
+                }
+                flag=0;
+                duplicate=NULL;
+            }
+            else{
+                prev=temp;
+                temp=temp->next;
+            }
+        }
+        if(flag==1){
+            ListNode* par=um[prev];
+            if(par==NULL){
+                head=temp;
+                um[head]=NULL;
+            }
+            else{
+                par->next=prev->next;
+                um.erase(prev);
+                prev=par;
+                um[temp]=prev;
+            }
+            flag=0;
+            duplicate=NULL;
+        }
+        return head;
+    }
+};
