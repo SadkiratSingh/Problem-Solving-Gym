@@ -1,0 +1,44 @@
+//Given an array of unique integers, arr, where each integer arr[i] is strictly greater than 1.
+//We make a binary tree using these integers, and each number may be used for any number of times. 
+//Each non-leaf node's value should be equal to the product of the values of its children.
+//Return the number of binary trees we can make. The answer may be too large so return the answer modulo 10^9 + 7.
+
+** not a typical dp question
+
+class Solution {
+public:
+    #define mod 1000000007
+    int numFactoredBinaryTrees(vector<int>& arr) {
+        int n=arr.size();
+        vector<long>root(n);
+        
+        sort(arr.begin(),arr.end()); // coz every non-leaf node is product of its two child nodes 
+        
+        fill(root.begin(),root.end(),1);//every element is binary tree on its own
+        
+        unordered_map<int,int>um;
+        for(int i=0;i<n;i++)
+            um.insert(make_pair(arr[i],i)); //all elements are unique
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(arr[i]%arr[j]==0){// A[j] is the left child whose index in arr is given by j
+                    //right child
+                    int r_ch=arr[i]/arr[j];
+                    
+                    if(um.find(r_ch)!=um.end())
+                        root[i]=(root[i]+(root[j]*root[um[r_ch]])%mod)%mod; //simple p&c rule
+                }
+            }
+        }
+        long sum=0;
+        for(int x:root)
+            sum+=x;
+        return sum%mod;
+    }
+};
+
+****NOTE:
+1. I think it should be: dp(v) = 2 * dp(x) *dp(y) since the position of the child nodes on left and right make difference. 
+Actually, in your loop, you do count it twice at i = x, j = y as well as i = y, j = x.
+2.the loop can be improved a bit by stopping the inner loop j at A[j] <= A[i] / A[0]
