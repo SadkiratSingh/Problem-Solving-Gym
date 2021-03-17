@@ -1,0 +1,44 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* temp=head;
+        // if list is empty return NULL
+        if(temp==NULL)
+            return head;
+        ListNode* par=NULL;// used to delete first occuring duplicate in list wrt to every number
+        //flag used to mark the start of duplicates in the list
+        int flag=0;
+        while(temp->next!=NULL){
+            if(temp->val==temp->next->val || flag==1){
+                if(flag==0)
+                    flag=1;
+                if(temp->val!=temp->next->val)
+                    flag=0;
+                if(temp==head){
+                    head=temp->next;
+                    temp=head;
+                }
+                else{
+                    par->next=temp->next;
+                    temp=temp->next;
+                }
+            }
+            else{
+                par=temp;
+                temp=temp->next;
+            }
+        }
+        // in case flag remains 1 after loop exits. this indicates the presence of duplicate remaining in the list
+        if(flag==1){
+            if(temp==head){
+                head=temp->next;
+                temp=head;
+            }
+            else{
+                par->next=temp->next;
+                temp=temp->next;
+            } 
+        }
+        return head;
+    }
+};
