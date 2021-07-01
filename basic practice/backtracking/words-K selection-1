@@ -1,0 +1,45 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void findways(string s,int k,string op){
+    if(op.size() == k){
+        cout<<op<<endl;
+        return;
+    }
+    if(s.size() == 0){
+        return;
+    }
+    string op1 = op;
+    string op2 = op;
+    
+    string temp1 = string(1,s[0]);
+    op1.append(temp1);
+    s.erase(s.begin());
+    
+    findways(s,k,op1);
+    findways(s,k,op2);
+}
+
+void printways(string& s,int k){
+    set<char>um;
+    for(int i=0;i<s.length();i++){
+        um.insert(s[i]);
+    }
+    string news;
+    for(auto x:um){
+        news+=x;
+    }
+    string op;
+    findways(news,k,op);
+}
+
+int main() {
+	// your code goes here
+	string input;
+	int k;
+	cin>>input;
+	cin>>k;
+	printways(input,k);
+	return 0;
+}
