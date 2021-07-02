@@ -1,0 +1,42 @@
+void findways(string& p,int k,string& filler,int curr,int nchars){
+    if(curr == p.size()){
+        if(nchars == k){
+            cout<<filler<<endl;
+        }
+        return;
+    }
+    for(int i=0;i<k;i++){
+        if(filler[i]=='#'){
+            filler[i]=p[curr];
+            //find ways for a particular choice
+            findways(p,k,filler,curr+1,nchars+1);
+            //change choice
+            filler[i]='#';
+        }
+    }
+    //dont take a particluar alphabet
+    findways(p,k,filler,curr+1,nchars);
+}
+
+void printways(string& s,int k){
+    unordered_set<char>um;
+    string p;
+    for(int i=0;i<s.length();i++){
+        if(um.find(s[i]) == um.end()){
+            p+=s[i];
+            um.insert(s[i]);
+        }
+    }
+    string filler = string(k,'#');
+    findways(p,k,filler,0,0);
+}
+
+int main() {
+	// your code goes here
+	string input;
+	int k;
+	cin>>input;
+	cin>>k;
+	printways(input,k);
+	return 0;
+}
