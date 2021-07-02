@@ -1,0 +1,37 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void findways(string p,int k,string op,int ls){
+    if(op.size() == k){
+        cout<<op<<endl;
+        return;
+    }
+    for(int i=ls+1;i<p.size();i++){
+        string temp = op + p[i];
+        findways(p,k,temp,i);
+    }
+}
+
+void printways(string& s,int k){
+    unordered_set<char>um;
+    string p;
+    for(int i=0;i<s.length();i++){
+        if(um.find(s[i]) == um.end()){
+            p+=s[i];
+            um.insert(s[i]);
+        }
+    }
+    string op;
+    findways(p,k,op,-1);
+}
+
+int main() {
+	// your code goes here
+	string input;
+	int k;
+	cin>>input;
+	cin>>k;
+	printways(input,k);
+	return 0;
+}
