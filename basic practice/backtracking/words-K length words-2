@@ -1,0 +1,50 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+void removeElement(unordered_set<char>& used,char ele){
+    auto it = used.find(ele);
+    if(it != used.end()){
+        used.erase(it);
+    }
+}
+
+void findways(string& p,int k,string& filler,int curr,int nchars,unordered_set<char>& used){
+    if(nchars == k){
+        cout<<filler<<endl;
+        return;
+    }
+    for(int i=0;i<p.size();i++){
+        if(used.find(p[i]) == used.end() ){
+            filler[curr] = p[i];
+            used.insert(p[i]);
+            findways(p,k,filler,curr+1,nchars+1,used);
+            filler[curr]='#';
+            removeElement(used,p[i]);
+        }
+    }
+}
+
+void printways(string& s,int k){
+    unordered_set<char>um;
+    string p;
+    for(int i=0;i<s.length();i++){
+        if(um.find(s[i]) == um.end()){
+            p+=s[i];
+            um.insert(s[i]);
+        }
+    }
+    unordered_set<char>used;
+    string filler = string(k,'#');
+    findways(p,k,filler,0,0,used);
+}
+
+int main() {
+	// your code goes here
+	string input;
+	int k;
+	cin>>input;
+	cin>>k;
+	printways(input,k);
+	return 0;
+}
