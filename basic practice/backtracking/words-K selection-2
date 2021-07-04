@@ -35,3 +35,31 @@ int main() {
 	printways(input,k);
 	return 0;
 }
+
+//alternate ways to 'findways' and 'printways'
+void findways(string& p,int k,string& op,int cs,int cc,int ls){
+    if(cc==k){
+        cout<<op<<endl;
+        return;
+    }
+    for(int i=ls+1;i<p.size();i++){
+        if(op[cs]=='#'){
+            op[cs]=p[i];
+        }
+        findways(p,k,op,cs+1,cc+1,i);
+        op[cs]='#';
+    }
+}
+
+void printways(string& s,int k){
+    unordered_set<char>um;
+    string p;
+    for(int i=0;i<s.length();i++){
+        if(um.find(s[i]) == um.end()){
+            p+=s[i];
+            um.insert(s[i]);
+        }
+    }
+    string op = string(k,'#');
+    findways(p,k,op,0,0,-1);
+}
