@@ -2,24 +2,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void removeElement(unordered_set<char>& used,char ele){
+void removeElement(unordered_set<char>&used,char ele){
     auto it = used.find(ele);
-    if(it != used.end()){
+    if(it!=used.end()){
         used.erase(it);
     }
 }
 
-void findways(string& p,int k,string& filler,int curr,int nchars,unordered_set<char>& used){
-    if(nchars == k){
-        cout<<filler<<endl;
+void findways(string& p,int k,string& op,int cs,int cc,unordered_set<char>& used){
+    if(cc==k){
+        cout<<op<<endl;
         return;
     }
     for(int i=0;i<p.size();i++){
-        if(used.find(p[i]) == used.end() ){
-            filler[curr] = p[i];
+        if(used.find(p[i]) == used.end()){
+            op[cs]=p[i];
             used.insert(p[i]);
-            findways(p,k,filler,curr+1,nchars+1,used);
-            filler[curr]='#';
+            findways(p,k,op,cs+1,cc+1,used);
+            op[cs]='#';
             removeElement(used,p[i]);
         }
     }
@@ -35,8 +35,8 @@ void printways(string& s,int k){
         }
     }
     unordered_set<char>used;
-    string filler = string(k,'#');
-    findways(p,k,filler,0,0,used);
+    string op = string(k,'#');
+    findways(p,k,op,0,0,used);
 }
 
 int main() {
