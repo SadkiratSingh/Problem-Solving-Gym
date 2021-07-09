@@ -1,0 +1,32 @@
+function generateFullNumber(n,k){
+    let newN='';
+    while(k>0){
+        newN+=n;
+        k--;
+    }
+    return newN;
+}
+
+function calcDigitsSum(numberString){
+    let sum = 0;
+    for(let i=0;i<numberString.length;i++){
+        sum+=Number(numberString[i]);
+    }
+    return sum.toString();
+}
+
+function calcSuperDigit(numberString){
+    if(numberString.length == 1){
+        return numberString;
+    }
+    let newNumberString = calcDigitsSum(numberString);
+    return calcSuperDigit(newNumberString);
+}
+
+function superDigit(n, k) {
+    // Write your code here
+    let initialDigitsSum = calcDigitsSum(n);
+    initialDigitsSum = (Number(initialDigitsSum)*k).toString();
+    console.log(initialDigitsSum);
+    return calcSuperDigit(initialDigitsSum);
+}
