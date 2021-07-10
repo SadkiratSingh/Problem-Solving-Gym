@@ -1,0 +1,52 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+//cuc is current character
+//cs is current slot
+// build a recursion tree keeping characters at level;
+
+void findways(string& s,int k,string& op,int cuc,int cc,unordered_map<char,int>& lastPosition){
+   if(cuc == s.size()){
+       if(cc==k){
+           cout<<op<<endl;
+        }
+        return;
+   }
+   int ls = lastPosition[s[cuc]];
+   for(int i=ls+1;i<op.size();i++){
+       if(op[i]=='#'){
+           op[i]=s[cuc];
+           lastPosition[s[cuc]]=i;
+           findways(s,k,op,cuc+1,cc+1,lastPosition);
+           op[i]='#';
+           lastPosition[s[cuc]]=ls;
+       }
+   }
+   if(ls==-1){
+       findways(s,k,op,cuc+1,cc,lastPosition);
+   }
+}
+
+void printways(string& s,int k){
+    unordered_set<char>unique;
+    unordered_map<char,int>lastPosition;
+    for(int i=0;i<s.length();i++){
+        if(unique.find(s[i])==unique.end()){
+            unique.insert(s[i]);
+            lastPosition[s[i]]=-1;
+        }
+    }
+    string op = string(k,'#');
+    findways(s,k,op,0,0,lastPosition);
+}
+
+int main() {
+	// your code goes here
+	string input;
+	int k;
+	cin>>input;
+	cin>>k;
+	printways(input,k);
+	return 0;
+}
