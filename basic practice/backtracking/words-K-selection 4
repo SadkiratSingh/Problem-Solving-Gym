@@ -1,0 +1,51 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+//slots at tree level
+
+void findWays(string& p,int k,string& op,unordered_map<char,int>& freq,int cs,int cc,unordered_set<string>& uniqueComb){
+    if(cc==k){
+        string temp = op;
+        sort(temp.begin(),temp.end());
+        if(uniqueComb.find(temp)==uniqueComb.end()){
+            uniqueComb.insert(temp);
+            cout<<op<<endl;
+        }
+        return;
+    }
+    for(int i=0;i<p.size();i++){
+       if(freq[p[i]]>0){
+            op[cs]=p[i];
+            freq[p[i]]--;
+            findWays(p,k,op,freq,cs+1,cc+1,uniqueComb);
+            op[cs]='#';
+            freq[p[i]]++;
+        }
+    }
+}
+
+void printWays(string& input,int k){
+    unordered_set<char>unique;
+    unordered_map<char,int>freq;
+    string p;
+    for(int i=0;i<input.size();i++){
+       freq[input[i]]+=1;
+       if(unique.find(input[i])==unique.end()){
+           unique.insert(input[i]);
+           p+=input[i];
+       } 
+    }
+    string op=string(k,'#');
+    unordered_set<string>uniqueComb;
+    findWays(p,k,op,freq,0,0,uniqueComb);
+}
+
+int main(){
+    string input;
+    cin>>input;
+    int k;
+    cin>>k;
+    printWays(input,k);
+    return 0;
+}
