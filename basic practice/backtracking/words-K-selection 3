@@ -1,0 +1,48 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+//chars at tree level
+
+void findWays(string& p,int k,string& op,unordered_map<char,int>& freq,int cuc){
+    if(cuc == p.size()){
+        if(op.size() == k){
+            cout<<op<<endl;
+        }
+        return;
+    }
+    for(int i=freq[p[cuc]];i>=0;i--){
+    if(i<=k-op.size()){
+        string temp;
+        temp=op+string(i,p[cuc]);
+        freq[p[cuc]]-=i;
+        findWays(p,k,temp,freq,cuc+1);
+        freq[p[cuc]]+=i;
+    }
+    
+    }
+}
+
+void printWays(string& input,int k){
+    unordered_set<char>unique;
+    unordered_map<char,int>freq;
+    string p;
+    for(int i=0;i<input.size();i++){
+       freq[input[i]]+=1;
+       if(unique.find(input[i])==unique.end()){
+           unique.insert(input[i]);
+           p+=input[i];
+       } 
+    }
+    string op;
+    findWays(p,k,op,freq,0);
+}
+
+int main(){
+    string input;
+    cin>>input;
+    int k;
+    cin>>k;
+    printWays(input,k);
+    return 0;
+}
