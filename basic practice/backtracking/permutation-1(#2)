@@ -1,0 +1,35 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+//slots at level;
+
+void findCombinations(vector<char>& boxes,int items,int cs,int cc){
+    if(cs==boxes.size()){
+        if(cc==items){
+            for(char x:boxes){
+                cout<<x;
+            }
+            cout<<endl;
+        }
+        return;
+    }
+    if(cc<items){
+        boxes[cs]='i';
+        findCombinations(boxes,items,cs+1,cc+1);
+        boxes[cs]='-';
+    }
+    findCombinations(boxes,items,cs+1,cc);
+}
+
+void printCombinations(int b,int items){
+    vector<char>boxes(b,'-');
+    findCombinations(boxes,items,0,0);
+}
+
+int main(){
+    int boxesNumber,itemsNumber;
+    cin>>boxesNumber>>itemsNumber;
+    printCombinations(boxesNumber,itemsNumber);
+    return 0;
+}
