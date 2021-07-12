@@ -1,0 +1,132 @@
+//only prints one and the latest solution.
+
+function canPlaceVertically(crossword,word,total_cols,total_rows,i,j){
+    if(i-1>=0 && crossword[i-1][j]!='+'){
+        return false;
+    }
+    if(i+word.length<total_rows && crossword[i+word.length][j]!='+'){
+        return false;
+    }
+    for(let k=0;k<word.length;k++){
+        if(i+k>=total_rows){
+            return false;
+        }
+        if(crossword[i+k][j]=='-' || crossword[i+k][j]==word[k]){
+            continue;
+        }
+        else{
+            return false;
+        }
+    }
+    return true;
+}
+
+function canPlaceHorizontally(crossword,word,total_cols,total_rows,i,j){
+    //within bounds but character just before is not '+';
+    if(j-1>=0 && crossword[i][j-1]!='+'){
+        return false;
+    }
+    //within bounds but character just after is not '+';
+    if(j+word.length < total_cols && crossword[i][j+word.length]!='+'){
+        return false;
+    }
+    for(let k=0;k<word.length;k++){
+        if(j+k>=total_cols){
+            return false;
+        }
+        if(crossword[i][j+k]=='-' || crossword[i][j+k]==word[k]){
+            continue;
+        }
+        else{
+            return false;
+        }
+    }
+    return true;
+}
+
+function placeHorizontally(crossword,word,i,j){
+    let placedByMe=[];
+    for(let k=0;k<word.length;k++){
+        if(crossword[i][j+k]=='-'){
+            crossword[i][j+k]=word[k];
+            placedByMe.push(true);
+        }
+        else{
+            placedByMe.push(false);
+        }
+    }
+    return placedByMe;
+}
+
+function placeVertically(crossword,word,i,j){
+    let placedByMe=[];
+    for(let k=0;k<word.length;k++){
+        if(crossword[i+k][j]=='-'){
+            crossword[i+k][j]=word[k];
+            placedByMe.push(true);
+        }
+        else{
+            placedByMe.push(false);
+        }
+    }
+    return placedByMe;
+}
+
+function unplaceHorizontally(crossword,word,i,j,placedByMe){
+    for(let k=0;k<word.length;k++){
+        if(placedByMe[k]){
+            crossword[i][j+k]='-';
+        }
+    }
+}
+
+function unplaceVertically(crossword,word,i,j,placedByMe){
+    for(let k=0;k<word.length;k++){
+        if(placedByMe[k]){
+            crossword[i+k][j]='-';
+        }
+    }
+}
+
+function fillPuzzle(crossword,wordsList,index,total_cols,total_rows,solution){
+    //i stand for rows and j for cols
+    if(index==wordsList.length){
+        solution['crossword']=JSON.parse(JSON.stringify(crossword));
+        return;
+    }
+    for(let i=0;i<total_rows;i++){
+        for(let j=0;j<total_cols;j++){
+            let word = wordsList[index];
+            if(crossword[i][j]=='-' || crossword[i][j]==word[0]){
+                if(canPlaceHorizontally(crossword,word,total_cols,total_rows,i,j)){
+                    let placedByMe = placeHorizontally(crossword,word,i,j);
+                    fillPuzzle(crossword,wordsList,index+1,total_cols,total_rows,solution);
+                    unplaceHorizontally(crossword,word,i,j,placedByMe);
+                    
+                }
+                if(canPlaceVertically(crossword,word,total_cols,total_rows,i,j)){
+                    let placedByMe = placeVertically(crossword,word,i,j);
+                    fillPuzzle(crossword,wordsList,index+1,total_cols,total_rows,solution);
+                    unplaceVertically(crossword,word,i,j,placedByMe);
+                }
+            }
+        }
+    }
+}
+
+function crosswordPuzzle(crossword, words) {
+    // Write your code here
+    let wordsList = words.split(';');
+    let total_cols = crossword.length;
+    let total_rows = crossword[0].length;
+    for(let i=0;i<total_cols;i++){
+        crossword[i]=crossword[i].split('');
+    }
+    let index = 0; 
+    let solution={};
+    fillPuzzle(crossword,wordsList,index,total_cols,total_rows,solution);
+    for(let i=0;i<total_cols;i++){
+        solution['crossword'][i]=solution['crossword'][i].toString().replace(/,/g,'');
+    }
+    return solution['crossword'];
+}
