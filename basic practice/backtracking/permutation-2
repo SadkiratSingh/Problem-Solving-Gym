@@ -2,6 +2,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//slots at level
+
 void removeElement(unordered_set<int>& used,int ele){
     auto it = used.find(ele);
     if(it!=used.end()){
