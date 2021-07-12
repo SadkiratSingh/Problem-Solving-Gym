@@ -1,0 +1,51 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+void removeElement(unordered_set<int>& used,int ele){
+    auto it = used.find(ele);
+    if(it!=used.end()){
+        used.erase(it);
+    }
+}
+
+void printVector(vector<int>& boxes){
+    for(int x:boxes){
+        cout<<x;
+    }
+    cout<<endl;
+}
+
+void findPermutations(vector<int>& boxes,int items,int cs,int cc,unordered_set<int>& used){
+    if(cs==boxes.size()){
+        if(cc==items){
+            printVector(boxes);
+        }
+        return;
+    }
+    for(int i=1;i<=items;i++){
+        if(used.find(i)==used.end()){
+            boxes[cs]=i;
+            used.insert(i);
+            findPermutations(boxes,items,cs+1,cc+1,used);
+            boxes[cs]=0;
+            removeElement(used,i);
+        }
+    }
+    findPermutations(boxes,items,cs+1,cc,used);
+}
+
+void printPermutations(int b,int items){
+    vector<int>boxes(b);
+    unordered_set<int>used;
+    findPermutations(boxes,items,0,0,used);
+}
+
+int main(){
+    int boxesNumber;
+    cin>>boxesNumber;
+    int itemsNumber;
+    cin>>itemsNumber;
+    printPermutations(boxesNumber,itemsNumber);
+    return 0;
+}
