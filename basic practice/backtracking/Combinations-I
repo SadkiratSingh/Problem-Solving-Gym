@@ -1,0 +1,36 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+//ci is current item
+//ls is last position
+//keeping items at level
+
+void findCombinations(vector<char>& boxes,int items,int ci,int ls){
+    if(ci>items){
+        for(char x:boxes){
+            cout<<x;
+        }
+        cout<<endl;
+        return;
+    }
+    for(int i=ls+1;i<boxes.size();i++){
+        if(boxes[i]=='-'){
+            boxes[i]='i';
+            findCombinations(boxes,items,ci+1,i);
+            boxes[i]='-';
+        }
+    }  
+}
+
+void printCombinations(int b,int items){
+    vector<char>boxes(b,'-');
+    findCombinations(boxes,items,1,-1);
+}
+
+int main(){
+    int boxesNumber,itemsNumber;
+    cin>>boxesNumber>>itemsNumber;
+    printCombinations(boxesNumber,itemsNumber);
+    return 0;
+}
