@@ -1,0 +1,31 @@
+#sort the list and find the maximum length subset of consecutive integers
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        print(nums)
+        max_len = -1
+        prev = None
+        temp_len = 1
+        for num in nums:
+            curr = num
+            if prev is None:
+                prev = curr
+                continue
+            else:
+                diff = curr - prev
+                if(diff == 1):
+                    temp_len+=1
+                elif(diff > 1):
+                    max_len = max(temp_len, max_len)
+                    temp_len = 1
+                prev = curr
+        if(len(nums) == 0):
+            return 0
+        if(max_len == -1):
+            return temp_len
+        return max(temp_len,max_len)
+                    
